@@ -18,5 +18,9 @@ Contents:
 * msgpass.bib - message passing 
 * partition.bib - partitioning
 
-RPI Thesis formatting DropBox:
-https://goo.gl/LqqbyO
+RPI Thesis formatting DropBox: https://goo.gl/LqqbyO
+
+ProTip: To list multiple references in your latex file do the following:
+```
+\bibliography{scorec-refs/frameworks,scorec-refs/cr,scorec-refs/errorest}
+```
