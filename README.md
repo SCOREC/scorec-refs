@@ -16,3 +16,6 @@ Contents:
 * meshdb.bib - mesh databases and data structures
 * msgpass.bib - message passing 
 * partition.bib - partitioning
+
+RPI Thesis formatting DropBox:
+https://goo.gl/LqqbyO
