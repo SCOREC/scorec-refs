@@ -13,6 +13,7 @@ Contents:
 * cr.bib - checkpoint and restart
 * errorest.bib - error estimators
 * frameworks.bib - application frameworks
+* io.bib - parallel io
 * meshadapt.bib - mesh adaptation
 * meshdb.bib - mesh databases and data structures
 * msgpass.bib - message passing 
