@@ -10,6 +10,7 @@ and the style guide is here:
 https://www.ieee.org/documents/style_manual.pdf
 
 Contents:
+* cfd.bib - computational fluid dynamics
 * cr.bib - checkpoint and restart
 * errorest.bib - error estimators
 * frameworks.bib - application frameworks
