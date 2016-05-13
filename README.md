@@ -13,6 +13,7 @@ Contents:
 * cfd.bib - computational fluid dynamics
 * cr.bib - checkpoint and restart
 * errorest.bib - error estimators
+* fem.bib - finite element method
 * frameworks.bib - application frameworks
 * hardware.bib - processors, systems, etc.
 * io.bib - parallel io
