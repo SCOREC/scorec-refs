@@ -22,6 +22,7 @@ Contents:
 * msgpass.bib - message passing 
 * partition.bib - partitioning
 * proglang.bib - programming languages
+* algorithms.bib - algorithms
 
 RPI Thesis formatting DropBox: 
 
