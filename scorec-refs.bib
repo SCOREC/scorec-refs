@@ -30,6 +30,7 @@ year = {2010},
 publisher = {IOS Press}
 }
 
+@COMMENT the non-blocking consensus algorithm
 @article{hoefler2010scalable,
 title = {Scalable communication protocols for dynamic sparse data exchange},
 author = {Hoefler, Torsten and Siebert, Christian and Lumsdaine, Andrew},
@@ -39,6 +40,36 @@ number = {5},
 pages = {159--168},
 year = {2010},
 publisher = {ACM}
+}
+
+@COMMENT implementation of basic non-blocking collectives
+@inproceedings{hoefler2007implementation,
+  title={Implementation and performance analysis of non-blocking collective operations for MPI},
+  author={Hoefler, Torsten and Lumsdaine, Andrew and Rehm, Wolfgang},
+  booktitle={Supercomputing, 2007. SC'07. Proceedings of the 2007 ACM/IEEE Conference on},
+  pages={1--10},
+  year={2007},
+  organization={IEEE}
+}
+
+@COMMENT non-blocking collectives in MPI3
+@article{hoefler2006non,
+  title={Non-Blocking Collective Operations for MPI-3},
+  author={Hoefler, Torsten and Squyres, J and Bosilca, George and Fagg, Graham and Lumsdaine, Andrew and Rehm, Wolfgang},
+  journal={Open Systems Lab, Indiana University, Tech. Rep},
+  volume={8},
+  year={2006}
+}
+
+@COMMENT article describing the original MPI standard
+@article{walker1996mpi,
+  title={MPI: a standard message passing interface},
+  author={Walker, David W and Dongarra, Jack J},
+  journal={Supercomputer},
+  volume={12},
+  pages={56--68},
+  year={1996},
+  publisher={ASFRA BV}
 }
 
 @COMMENT linked lists
@@ -71,7 +102,7 @@ publisher = {ACM}
   organization={IEEE}
 }
 
-@COMMENT intrusive doubly-linked list groupings (definitely novel, not stolen)
+@COMMENT intrusive doubly-linked list groupings
 @inproceedings{karamete2016novel,
   title={A Novel Double Link Structure (DLS) with Applications to Computational Engineering and Design},
   author={Karamete, Bilge K and Aubry, Romain and Mestreau, E and Dey, Saikat},
@@ -101,6 +132,27 @@ publisher = {ACM}
   year={2012},
   organization={IEEE}
 }
+
+@article{pjevsivac2007performance,
+  title={Performance analysis of MPI collective operations},
+  author={Pje{\v{s}}ivac-Grbovi{\'c}, Jelena and Angskun, Thara and Bosilca, George and Fagg, Graham E and Gabriel, Edgar and Dongarra, Jack J},
+  journal={Cluster Computing},
+  volume={10},
+  number={2},
+  pages={127--143},
+  year={2007},
+  publisher={Springer}
+}
+
+@incollection{thakur2003improving,
+  title={Improving the performance of collective operations in MPICH},
+  author={Thakur, Rajeev and Gropp, William D},
+  booktitle={Recent Advances in Parallel Virtual Machine and Message Passing Interface},
+  pages={257--267},
+  year={2003},
+  publisher={Springer}
+}
+
 @article{rasquinCise2014,
   title={{Scalable Implicit Flow Solver for Realistic Wing Simulations with
     Flow Control}},
@@ -822,6 +874,19 @@ journal = {Parallel Computing. Submitted},
 year = {2014}
 }
 
+@COMMENT this article suggests inter-thread communication just like PCU
+@article{mavriplis2002parallel,
+  title={Parallel performance investigations of an unstructured mesh Navier-Stokes solver},
+  author={Mavriplis, Dimitri J},
+  journal={International Journal of High Performance Computing Applications},
+  volume={16},
+  number={4},
+  pages={395--407},
+  year={2002},
+  publisher={SAGE Publications}
+}
+
+@COMMENT the IPComMan paper.
 @article{ovcharenko2012neighborhood,
 title = {Neighborhood communication paradigm to increase scalability in large-scale dynamic scientific applications},
 author = {Ovcharenko, Aleksandr and Ibanez, Daniel and Delalondre, Fabien and Sahni, Onkar and Jansen, Kenneth E and Carothers, Christopher D and Shephard, Mark S},
@@ -830,7 +895,9 @@ volume = {38},
 number = {3},
 pages = {140-156},
 year = {2012},
-publisher = {Elsevier}
+publisher = {Elsevier},
+issn = {0167-8191},
+doi = {http://dx.doi.org/10.1016/j.parco.2011.10.013},
 }
 
 
@@ -1211,6 +1278,14 @@ note = "",
 author = {M. Zhou{\,} O. Sahni{\,} K.D. Devine{\,}  M.S. Shephard{\,} K.E. Jansen}
 }
 
+@COMMENT Min's thesis
+@phdthesis{zhou2010petascale,
+  title={Petascale adaptive computational fluid dynamics},
+  author={Zhou, Min},
+  year={2009},
+  school={Rensselaer Polytechnic Institute}
+}
+
 @article{zhou2012unstructured,
   title={Unstructured mesh partition improvement for implicit finite element at extreme scale},
   author={Zhou, Min and Sahni, Onkar and Xie, Ting and Shephard, Mark S and Jansen, Kenneth E},
@@ -1223,8 +1298,7 @@ author = {M. Zhou{\,} O. Sahni{\,} K.D. Devine{\,}  M.S. Shephard{\,} K.E. Janse
 }
 
 @ARTICLE{Zhou-flow,
-  author = {M. Zhou and O. Sahni and H. J. Kim and C. A. Figueroa and C. A. Taylor
-	and M. S. Shephard and K. E. Jansen},
+  author = {M. Zhou and O. Sahni and H. J. Kim and C. A. Figueroa and C. A. Taylor and M. S. Shephard and K. E. Jansen},
   title = {Cardiovascular Flow Simulation at Extreme Scale},
   journal = {Computational Mechanics},
   year = {2010},
