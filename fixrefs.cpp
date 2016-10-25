@@ -14,9 +14,17 @@ using StringMap = std::map<std::string, std::string>;
 using StringSet = std::set<std::string>;
 using StringVector = std::vector<std::string>;
 
+enum FieldValueLimit {
+  FVL_NONE,
+  FVL_CURLY,
+  FVL_QUOTE
+};
+
 struct Field {
+  Field():limit(FVL_CURLY) {}
   std::string name;
   std::string value;
+  FieldValueLimit limit;
 };
 
 using Fields = std::vector<Field>;
@@ -42,12 +50,6 @@ enum ParserState {
   COMMENT
 };
 
-enum FieldValueLimit {
-  FVL_NONE,
-  FVL_CURLY,
-  FVL_QUOTE
-};
-
 static void make_lowercase(std::string& s) {
   std::transform(s.begin(), s.end(), s.begin(), ::tolower);
 }
@@ -71,7 +73,6 @@ class Parser {
   int column;
   int curly_depth;
   bool in_quote;
-  FieldValueLimit value_limit;
   Entries entries;
   char c;
 
@@ -86,16 +87,20 @@ class Parser {
     if (curly_depth < 0) fail();
   }
 
+  FieldValueLimit& value_limit() {
+    return entries.back().fields.back().limit;
+  }
+
   void handle_quote() {
     if (c != '"') return;
-    if (value_limit == FVL_NONE) in_quote = true;
+    if (value_limit() == FVL_NONE) in_quote = !in_quote;
   }
 
   void fail() __attribute__((noreturn));
 
   bool field_value_ended() {
     if (curly_depth != 0) return false;
-    switch (value_limit) {
+    switch (value_limit()) {
       case FVL_NONE: return (!in_quote && c == ',') || c == '\n';
       case FVL_CURLY: return c == '}';
       case FVL_QUOTE: return c == '"';
@@ -111,12 +116,7 @@ public:
     column = 0;
     curly_depth = 0;
     while (stream.get(c)) {
-      if (c == '\n') {
-        ++line;
-        column = 0;
-      } else {
-        ++column;
-      }
+      ++column;
       switch (state) {
         case LIMBO:
           if (std::isspace(c)) break;
@@ -178,12 +178,12 @@ public:
           if (std::isspace(c)) break;
           else if (c == '{') {
             state = FIELD_VALUE_TEXT;
-            value_limit = FVL_CURLY;
+            value_limit() = FVL_CURLY;
           } else if (c == '"') {
             state = FIELD_VALUE_TEXT;
-            value_limit = FVL_QUOTE;
+            value_limit() = FVL_QUOTE;
           } else if (std::isprint(c)) {
-            value_limit = FVL_NONE;
+            value_limit() = FVL_NONE;
             handle_curly();
             handle_quote();
             entries.back().fields.back().value.push_back(c);
@@ -219,6 +219,10 @@ public:
           else entries.back().comment.push_back(c);
         break;
       }
+      if (c == '\n') {
+        ++line;
+        column = 0;
+      }
     }
     if (state != LIMBO) {
       std::cout << "File ended early\n";
@@ -248,7 +252,7 @@ void Parser::fail() {
   std::cout << "\"\n";
   std::cout << "curly depth " << curly_depth;
   std::cout << " value delimiter ";
-  switch (value_limit) {
+  switch (value_limit()) {
     case FVL_NONE: std::cout << "none"; break;
     case FVL_CURLY: std::cout << "}"; break;
     case FVL_QUOTE: std::cout << "\""; break;
@@ -259,7 +263,11 @@ void Parser::fail() {
 }
 
 static void print_field2(std::ostream& stream, Field const& field) {
-  stream << field.name << "={" << field.value << "}";
+  if (field.limit == FVL_NONE) {
+    stream << field.name << "=" << field.value;
+  } else { /* both quotes and curly braces become curly braces */
+    stream << field.name << "={" << field.value << "}";
+  }
 }
 
 static void print_field(std::ostream& stream, Field const& field, bool last) {
