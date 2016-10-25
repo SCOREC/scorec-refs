@@ -51,6 +51,11 @@ static std::string as_lowercase(std::string const& s) {
 
 static void print_entries(std::ostream& stream, Entries const& entries);
 
+static bool isident(char c) {
+  return std::isalnum(c) || c == '-' || c == '_' ||
+    c == '.' || c == ':';
+}
+
 class Parser {
   ParserState state;
   int line;
@@ -78,11 +83,6 @@ class Parser {
       case FVL_CURLY: return c == '}';
       case FVL_QUOTE: return c == '"';
     }
-  }
-
-  bool iskey(char c) {
-    return std::isalnum(c) || c == '-' || c == '_' ||
-      c == '.' || c == ':';
   }
 
 public:
@@ -137,7 +137,7 @@ public:
             make_lowercase(entries.back().key);
             state = FIELD_LIMBO;
           }
-          else if (iskey(c)) {
+          else if (isident(c)) {
             entries.back().key.push_back(c);
           }
           else fail();
@@ -154,7 +154,7 @@ public:
         break;
         case FIELD_NAME:
           if (std::isspace(c)) break;
-          else if (std::isalpha(c)) {
+          else if (isident(c)) {
             entries.back().fields.back().name.push_back(c);
           } else if (c == '=') {
             make_lowercase(entries.back().fields.back().name);
