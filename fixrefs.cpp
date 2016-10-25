@@ -63,12 +63,14 @@ class Parser {
   int curly_depth;
   FieldValueLimit value_limit;
   Entries entries;
+  char c;
 
-  bool is_curly(char c) {
+  bool is_curly() {
     return c == '{' || c == '}';
   }
 
-  void handle_curly(char c) {
+  void handle_curly() {
+    if (!is_curly()) return;
     if (c == '{') ++curly_depth;
     if (c == '}') --curly_depth;
     if (curly_depth < 0) fail();
@@ -76,10 +78,10 @@ class Parser {
 
   void fail() __attribute__((noreturn));
 
-  bool field_value_ended(char c) {
+  bool field_value_ended() {
     if (curly_depth != 0) return false;
     switch (value_limit) {
-      case FVL_NONE: return c == ',';
+      case FVL_NONE: return c == ',' || c == '\n';
       case FVL_CURLY: return c == '}';
       case FVL_QUOTE: return c == '"';
     }
@@ -93,7 +95,6 @@ public:
     line = 1;
     column = 0;
     curly_depth = 0;
-    char c;
     while (stream.get(c)) {
       if (c == '\n') {
         ++line;
@@ -171,26 +172,28 @@ public:
             value_limit = FVL_QUOTE;
           } else if (std::isprint(c)) {
             value_limit = FVL_NONE;
-            if (is_curly(c)) handle_curly(c);
+            handle_curly();
             entries.back().fields.back().value.push_back(c);
             state = FIELD_VALUE_TEXT;
           } else fail();
         break;
         case FIELD_VALUE_TEXT:
-          if (std::isspace(c)) state = FIELD_VALUE_SPACE;
-          else if (field_value_ended(c)) {
+          if (field_value_ended()) {
             state = FIELD_LIMBO;
+          } else if (std::isspace(c)) {
+            state = FIELD_VALUE_SPACE;
           } else if (std::isprint(c)) {
-            if (is_curly(c)) handle_curly(c);
+            handle_curly();
             entries.back().fields.back().value.push_back(c);
           } else fail();
         break;
         case FIELD_VALUE_SPACE:
-          if (std::isspace(c)) break;
-          else if (field_value_ended(c)) {
+          if (field_value_ended()) {
             state = FIELD_LIMBO;
+          } else if (std::isspace(c)) {
+            break;
           } else if (std::isprint(c)) {
-            if (is_curly(c)) handle_curly(c);
+            handle_curly();
             entries.back().fields.back().value.push_back(' ');
             entries.back().fields.back().value.push_back(c);
             state = FIELD_VALUE_TEXT;
@@ -212,6 +215,7 @@ public:
 
 void Parser::fail() {
   std::cout << "Parse error at line " << line << " column " << column;
+  std::cout << " char " << c;
   std::cout << " state \"";
   switch (state) {
     case LIMBO: std::cout << "limbo"; break;
@@ -225,6 +229,14 @@ void Parser::fail() {
     case COMMENT: std::cout << "comment"; break;
   }
   std::cout << "\"\n";
+  std::cout << "curly depth " << curly_depth;
+  std::cout << " value delimiter ";
+  switch (value_limit) {
+    case FVL_NONE: std::cout << "none"; break;
+    case FVL_CURLY: std::cout << "}"; break;
+    case FVL_QUOTE: std::cout << "\""; break;
+  }
+  std::cout << '\n';
   print_entries(std::cout, entries);
   exit(-1);
 }
