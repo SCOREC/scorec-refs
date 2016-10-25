@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <algorithm>
 #include <fstream>
+#include <sstream>
 
 struct Field {
   std::string name;
@@ -208,7 +209,7 @@ public:
     }
   }
 
-  Entries const& get_entries() { return entries; }
+  Entries& get_entries() { return entries; }
 
 };
 
@@ -280,6 +281,40 @@ static void print_entries(std::ostream& stream, Entries const& entries) {
   for (auto entry : entries) print_entry(stream, entry);
 }
 
+/* If an @article entry has a url field, an [Online]
+   tag gets printed in the references section.
+   I don't want that there, but at the same time we
+   may not want to lose the URL, so I'll copy it up
+   into a comment above the entry.
+ */
+static void comment_out_article_urls(Entries& entries) {
+  Entry new_entry;
+  new_entry.type = "comment";
+  for (size_t i = 0; i < entries.size(); ++i) {
+    auto& entry = entries[i];
+    if (entry.type != "article") continue;
+    size_t j;
+    for (j = 0; j < entry.fields.size(); ++j) {
+      auto const& f = entry.fields[j];
+      if (f.name == "url") {
+        std::stringstream stream;
+        stream << "  ";
+        print_field2(stream, f);
+        new_entry.comment = stream.str();
+        break;
+      }
+    }
+    if (j != entry.fields.size()) {
+      entry.fields.erase(entry.fields.begin() + j);
+      entries.insert(entries.begin() + i, new_entry);
+    }
+  }
+}
+
+static void fix_entries(Entries& entries) {
+  comment_out_article_urls(entries);
+}
+
 int main(int argc, char** argv) {
   bool inplace = false;
   const char* inpath = nullptr;
@@ -304,12 +339,14 @@ int main(int argc, char** argv) {
     }
     parser.run(file);
   }
+  auto& entries = parser.get_entries();
+  fix_entries(entries);
   {
     std::ofstream file(outpath);
     if (!file.is_open()) {
       std::cout << "could not open " << outpath << " for writing\n";
       return -1;
     }
-    print_entries(file, parser.get_entries());
+    print_entries(file, entries);
   }
 }
