@@ -33,6 +33,12 @@ enum ParserState {
   COMMENT
 };
 
+enum FieldValueLimit {
+  FVL_NONE,
+  FVL_CURLY,
+  FVL_QUOTE
+};
+
 static void make_lowercase(std::string& s) {
   std::transform(s.begin(), s.end(), s.begin(), ::tolower);
 }
@@ -50,7 +56,7 @@ class Parser {
   int line;
   int column;
   int curly_depth;
-  bool field_uses_quotes;
+  FieldValueLimit value_limit;
   Entries entries;
 
   bool is_curly(char c) {
@@ -67,8 +73,11 @@ class Parser {
 
   bool field_value_ended(char c) {
     if (curly_depth != 0) return false;
-    if (field_uses_quotes) return c == '"';
-    else return c == '}';
+    switch (value_limit) {
+      case FVL_NONE: return c == ',';
+      case FVL_CURLY: return c == '}';
+      case FVL_QUOTE: return c == '"';
+    }
   }
 
 public:
@@ -79,7 +88,6 @@ public:
     line = 1;
     column = 0;
     curly_depth = 0;
-    field_uses_quotes = false;
     char c;
     while (stream.get(c)) {
       if (c == '\n') {
@@ -152,20 +160,23 @@ public:
           if (std::isspace(c)) break;
           else if (c == '{') {
             state = FIELD_VALUE_TEXT;
-            field_uses_quotes = false;
+            value_limit = FVL_CURLY;
           } else if (c == '"') {
             state = FIELD_VALUE_TEXT;
-            field_uses_quotes = true;
+            value_limit = FVL_QUOTE;
+          } else if (std::isprint(c)) {
+            value_limit = FVL_NONE;
+            if (is_curly(c)) handle_curly(c);
+            entries.back().fields.back().value.push_back(c);
+            state = FIELD_VALUE_TEXT;
           } else fail();
         break;
         case FIELD_VALUE_TEXT:
           if (std::isspace(c)) state = FIELD_VALUE_SPACE;
           else if (field_value_ended(c)) {
             state = FIELD_LIMBO;
-          } else if (is_curly(c)) {
-            handle_curly(c);
-            entries.back().fields.back().value.push_back(c);
           } else if (std::isprint(c)) {
+            if (is_curly(c)) handle_curly(c);
             entries.back().fields.back().value.push_back(c);
           } else fail();
         break;
@@ -173,12 +184,8 @@ public:
           if (std::isspace(c)) break;
           else if (field_value_ended(c)) {
             state = FIELD_LIMBO;
-          } else if (is_curly(c)) {
-            handle_curly(c);
-            entries.back().fields.back().value.push_back(' ');
-            entries.back().fields.back().value.push_back(c);
-            state = FIELD_VALUE_TEXT;
           } else if (std::isprint(c)) {
+            if (is_curly(c)) handle_curly(c);
             entries.back().fields.back().value.push_back(' ');
             entries.back().fields.back().value.push_back(c);
             state = FIELD_VALUE_TEXT;
