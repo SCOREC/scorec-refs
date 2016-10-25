@@ -1,10 +1,18 @@
 #include <iostream>
 #include <string>
+#include <map>
+#include <set>
 #include <vector>
 #include <cstdlib>
 #include <algorithm>
+#include <iterator>
 #include <fstream>
 #include <sstream>
+#include <cassert>
+
+using StringMap = std::map<std::string, std::string>;
+using StringSet = std::set<std::string>;
+using StringVector = std::vector<std::string>;
 
 struct Field {
   std::string name;
@@ -62,6 +70,7 @@ class Parser {
   int line;
   int column;
   int curly_depth;
+  bool in_quote;
   FieldValueLimit value_limit;
   Entries entries;
   char c;
@@ -77,12 +86,17 @@ class Parser {
     if (curly_depth < 0) fail();
   }
 
+  void handle_quote() {
+    if (c != '"') return;
+    if (value_limit == FVL_NONE) in_quote = true;
+  }
+
   void fail() __attribute__((noreturn));
 
   bool field_value_ended() {
     if (curly_depth != 0) return false;
     switch (value_limit) {
-      case FVL_NONE: return c == ',' || c == '\n';
+      case FVL_NONE: return (!in_quote && c == ',') || c == '\n';
       case FVL_CURLY: return c == '}';
       case FVL_QUOTE: return c == '"';
     }
@@ -171,6 +185,7 @@ public:
           } else if (std::isprint(c)) {
             value_limit = FVL_NONE;
             handle_curly();
+            handle_quote();
             entries.back().fields.back().value.push_back(c);
             state = FIELD_VALUE_TEXT;
           } else fail();
@@ -182,6 +197,7 @@ public:
             state = FIELD_VALUE_SPACE;
           } else if (std::isprint(c)) {
             handle_curly();
+            handle_quote();
             entries.back().fields.back().value.push_back(c);
           } else fail();
         break;
@@ -192,6 +208,7 @@ public:
             break;
           } else if (std::isprint(c)) {
             handle_curly();
+            handle_quote();
             entries.back().fields.back().value.push_back(' ');
             entries.back().fields.back().value.push_back(c);
             state = FIELD_VALUE_TEXT;
@@ -298,7 +315,6 @@ static void comment_out_article_urls(Entries& entries) {
       auto const& f = entry.fields[j];
       if (f.name == "url") {
         std::stringstream stream;
-        stream << "  ";
         print_field2(stream, f);
         new_entry.comment = stream.str();
         break;
@@ -311,8 +327,183 @@ static void comment_out_article_urls(Entries& entries) {
   }
 }
 
-static void fix_entries(Entries& entries) {
-  comment_out_article_urls(entries);
+static void remove_fields(Entries& entries, std::string const& name) {
+  for (auto& entry : entries) {
+    for (auto it = begin(entry.fields); it != end(entry.fields); ++it) {
+      if (it->name == name) {
+        entry.fields.erase(it);
+        break;
+      }
+    }
+  }
+}
+
+/* IEEE Editorial Style Manual Appendix D
+   https://www.ieee.org/documents/style_manual.pdf */
+static char const* const known_abbreviations[][2] = {
+{"Acoustics","Acoust."},
+{"Administration","Admin."},
+{"Administrative","Administ."},
+{"American","Amer."},
+{"Analysis","Anal."},
+{"Annals","Ann."},
+{"Annual","Annu."},
+{"Apparatus","App."},
+{"Applications","Appl."},
+{"Applied","Appl."},
+{"Association","Assoc."},
+{"Automatic","Automat."},
+{"British","Brit."},
+{"Broadcasting","Broadcast."},
+{"Business","Bus."},
+{"Canadian","Can."},
+{"Chinese","Chin."},
+{"Communications","Commun."},
+{"Computer","Comput."},
+{"Computers","Comput."},
+{"Conference","Conf."},
+{"Congress","Congr."},
+{"Convention","Conv."},
+{"Correspondence","Corresp."},
+{"Cybernetics","Cybern."},
+{"Department","Dept."},
+{"Development","Develop."},
+{"Digest","Dig."},
+{"Economic","Econ."},
+{"Economics","Econ."},
+{"Education","Edu."},
+{"Electrical","Elect."},
+{"Electronic","Electron."},
+{"Engineering","Eng."},
+{"Ergonomics","Ergonom."},
+{"European","Eur."},
+{"Evolutionary","Evol."},
+{"Foundation","Found."},
+{"Geoscience","Geosci."},
+{"Graphics","Graph."},
+{"Industrial","Ind."},
+{"Information","Inform."},
+{"Institute","Inst."},
+{"Intelligence","Intell."},
+{"International","Int."},
+{"Japan","Jpn."},
+{"Journal","J."},
+{"Letter","Lett."},
+{"Letters","Lett."},
+{"Machine","Mach."},
+{"Magazine","Mag."},
+{"Management","Manage."},
+{"Managing","Manag."},
+{"Mathematical","Math."},
+{"Mechanical","Mech."},
+{"Meeting","Meeting"},
+{"National","Nat."},
+{"Newsletter","Newslett."},
+{"Nuclear","Nucl."},
+{"Occupation","Occupat."},
+{"Operational","Oper."},
+{"Optical","Opt."},
+{"Optics","Opt."},
+{"Organization","Org."},
+{"Philosophical","Philosoph."},
+{"Proceedings","Proc."},
+{"Processing","Process."},
+{"Production","Prod."},
+{"Productivity","Productiv."},
+{"Quarterly","Quart."},
+{"Record","Rec."},
+{"Reliability","Rel."},
+{"Report","Rep."},
+{"Research","Res."},
+{"Review","Rev."},
+{"Royal","Roy."},
+{"Science","Sci."},
+{"Selected","Select."},
+{"Society","Soc."},
+{"Sociological","Sociol."},
+{"Statistics","Statist."},
+{"Studies","Stud."},
+{"Supplement","Suppl."},
+{"Symposium","Symp."},
+{"Systems","Syst."},
+{"Technical","Tech."},
+{"Techniques","Techn."},
+{"Technology","Technol."},
+{"Telecommunications","Telecommun."},
+{"Transactions","Trans."},
+{"Vehicular","Veh."},
+{"Working","Work."}
+};
+
+#define ARRAY_SIZE(a) (sizeof(a)/sizeof(a[0]))
+
+static StringMap get_abbreviations() {
+  StringMap m;
+  for (size_t i = 0; i < ARRAY_SIZE(known_abbreviations); ++i) {
+    m[known_abbreviations[i][0]] = known_abbreviations[i][1];
+  }
+  return m;
+}
+
+/* whether this character is to be treated similar
+   to its own word in text.
+   the only different treatment this will get is
+   that no space will be put between it and the
+   previous word
+ */
+static bool is_ctrl_word(char c) {
+  return c == ',' || c == ':';
+}
+static bool is_ctrl_word(std::string const& word) {
+  return word.size() == 1 && is_ctrl_word(word[0]);
+}
+
+static StringVector split_text(std::string const& s) {
+  StringVector v;
+  bool in_space = true;
+  for (auto c : s) {
+    bool c_is_space = std::isspace(c);
+    if ((in_space && !c_is_space) || is_ctrl_word(c)) {
+      v.push_back(std::string());
+    }
+    if (!c_is_space) {
+      v.back().push_back(c);
+    }
+    if (c_is_space || is_ctrl_word(c)) in_space = true;
+    else in_space = false;
+  }
+  return v;
+}
+
+static std::string unsplit_text(StringVector const& v) {
+  bool first = true;
+  std::string s;
+  for (auto const& word : v) {
+    if (!first && !is_ctrl_word(word)) s.push_back(' ');
+    s += word;
+    if (first) first = false;
+  }
+  return s;
+}
+
+static void abbreviate(Entries& entries) {
+  StringSet text_fields;
+  text_fields.insert(std::string("booktitle"));
+  text_fields.insert(std::string("journal"));
+  auto abbrevs = get_abbreviations();
+  for (auto& entry : entries) {
+    auto is_string = entry.type == "string";
+    for (auto& field : entry.fields) {
+      if (text_fields.count(field.name) || is_string) {
+        auto words = split_text(field.value);
+        for (auto& word : words) {
+          auto it = abbrevs.find(word);
+          if (it != abbrevs.end()) word = it->second;
+        }
+        field.value = unsplit_text(words);
+      }
+    }
+  }
 }
 
 int main(int argc, char** argv) {
@@ -340,7 +531,10 @@ int main(int argc, char** argv) {
     parser.run(file);
   }
   auto& entries = parser.get_entries();
-  fix_entries(entries);
+  comment_out_article_urls(entries);
+  remove_fields(entries, "file");
+  remove_fields(entries, "abstract");
+  abbreviate(entries);
   {
     std::ofstream file(outpath);
     if (!file.is_open()) {
