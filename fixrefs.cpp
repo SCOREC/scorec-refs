@@ -80,6 +80,11 @@ class Parser {
     }
   }
 
+  bool iskey(char c) {
+    return std::isalnum(c) || c == '-' || c == '_' ||
+      c == '.' || c == ':';
+  }
+
 public:
 
   void run(std::istream& stream) {
@@ -132,7 +137,7 @@ public:
             make_lowercase(entries.back().key);
             state = FIELD_LIMBO;
           }
-          else if (std::isalnum(c)) {
+          else if (iskey(c)) {
             entries.back().key.push_back(c);
           }
           else fail();
