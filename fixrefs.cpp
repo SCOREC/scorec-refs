@@ -240,8 +240,13 @@ void Parser::fail() {
   exit(-1);
 }
 
+static void print_field2(std::ostream& stream, Field const& field) {
+  stream << field.name << "={" << field.value << "}";
+}
+
 static void print_field(std::ostream& stream, Field const& field, bool last) {
-  stream << "  " << field.name << "={" << field.value << "}";
+  stream << "  ";
+  print_field2(stream, field);
   if (!last) stream << ",";
   stream << '\n';
 }
@@ -256,6 +261,12 @@ static void print_fields(std::ostream& stream, Fields const& fields) {
 static void print_entry(std::ostream& stream, Entry const& entry) {
   if (entry.type == "comment") {
     stream << entry.comment << '\n';
+    return;
+  }
+  if (entry.type == "string") {
+    stream << "@" << entry.type << "{";
+    print_field2(stream, entry.fields.back());
+    stream << "}\n";
     return;
   }
   stream << "@" << entry.type << "{";
