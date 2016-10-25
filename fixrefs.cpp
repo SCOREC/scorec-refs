@@ -135,13 +135,10 @@ public:
         case ENTRY_KEY:
           if (std::isspace(c)) break;
           else if (c == ',') {
-            make_lowercase(entries.back().key);
             state = FIELD_LIMBO;
-          }
-          else if (isident(c)) {
+          } else if (isident(c)) {
             entries.back().key.push_back(c);
-          }
-          else fail();
+          } else fail();
         break;
         case FIELD_LIMBO:
           if (std::isspace(c)) break;
@@ -211,6 +208,8 @@ public:
     }
   }
 
+  Entries const& get_entries() { return entries; }
+
 };
 
 void Parser::fail() {
@@ -271,11 +270,35 @@ static void print_entries(std::ostream& stream, Entries const& entries) {
 }
 
 int main(int argc, char** argv) {
-  if (argc != 2) {
-    std::cout << "usage: " << argv[0] << " input.bib\n";
+  bool inplace = false;
+  const char* inpath = nullptr;
+  const char* outpath = nullptr;
+  for (int i = 1; i < argc; ++i) {
+    if (std::string("-i") == argv[i]) inplace = true;
+    else if (!inpath) inpath = argv[i];
+    else if (!outpath) outpath = argv[i];
+  }
+  if (inplace) outpath = inpath;
+  if (!inpath || !outpath) {
+    std::cout << "usage: " << argv[0] << " input.bib output.bib\n";
+    std::cout << "       " << argv[0] << " -i inout.bib\n";
     return -1;
   }
-  std::ifstream file(argv[1]);
   Parser parser;
-  parser.run(file);
+  {
+    std::ifstream file(inpath);
+    if (!file.is_open()) {
+      std::cout << "could not open " << inpath << " for reading\n";
+      return -1;
+    }
+    parser.run(file);
+  }
+  {
+    std::ofstream file(outpath);
+    if (!file.is_open()) {
+      std::cout << "could not open " << outpath << " for writing\n";
+      return -1;
+    }
+    print_entries(file, parser.get_entries());
+  }
 }
