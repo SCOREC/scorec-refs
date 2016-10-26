@@ -64,7 +64,7 @@ static void print_entries(std::ostream& stream, Entries const& entries);
 
 static bool isident(char c) {
   return std::isalnum(c) || c == '-' || c == '_' ||
-    c == '.' || c == ':';
+    c == '.' || c == ':' || c == '/';
 }
 
 class Parser {
