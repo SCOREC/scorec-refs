@@ -346,6 +346,8 @@ static void remove_fields(Entries& entries, std::string const& name) {
   }
 }
 
+#define ARRAY_SIZE(a) (sizeof(a)/sizeof(a[0]))
+
 /* IEEE Editorial Style Manual Appendix D
    https://www.ieee.org/documents/style_manual.pdf */
 static char const* const known_abbreviations[][2] = {
@@ -469,7 +471,32 @@ static char const* const known_abbreviations[][2] = {
 {"Working","Work."}
 };
 
-#define ARRAY_SIZE(a) (sizeof(a)/sizeof(a[0]))
+/* abbreviated names of anything that is roughly
+   an @proceedings entry.
+   instances of " of", " on the", etc. are removed
+   after these keywords.
+ */
+static StringSet get_abbrev_proc_names() {
+  StringSet s = {
+    "Comm.",
+    "Conf.",
+    "Dept.",
+    "J.",
+    "Proc.",
+    "Symp.",
+    "Trans."
+  };
+  return s;
+}
+
+static StringSet get_prepositions() {
+  StringSet s = {
+    "of",
+    "on",
+    "for",
+  };
+  return s;
+}
 
 static StringMap get_abbreviations() {
   StringMap m;
@@ -527,15 +554,29 @@ static void abbreviate(Entries& entries) {
   text_fields.insert(std::string("booktitle"));
   text_fields.insert(std::string("journal"));
   auto abbrevs = get_abbreviations();
+  auto procs = get_abbrev_proc_names();
+  auto preps = get_prepositions();
   for (auto& entry : entries) {
     auto is_string = entry.type == "string";
     for (auto& field : entry.fields) {
       if (text_fields.count(field.name) || is_string) {
         auto words = split_text(field.value);
+        /* first abbreviate single words */
         for (auto& word : words) {
-          auto lword = as_lowercase(word);
+          auto lword = as_lowercase(word); /* case-insensitive match */
           auto it = abbrevs.find(lword);
           if (it != abbrevs.end()) word = it->second;
+        }
+        /* then remove prepositions after abbreviated proceedings */
+        for (size_t i = 0; i < words.size(); ++i) {
+          if (procs.count(words[i])) {
+            if ((i + 1 < words.size()) && preps.count(words[i + 1])) {
+              if ((i + 2 < words.size()) && words[i + 2] == "the") {
+                words.erase(words.begin() + i + 2);
+              }
+              words.erase(words.begin() + i + 1);
+            }
+          }
         }
         field.value = unsplit_text(words);
       }
