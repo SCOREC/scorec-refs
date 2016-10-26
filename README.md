@@ -32,7 +32,7 @@ make
 ./fixrefs -i myrefs.bib
 ```
 
-Documentation on BibTex:
+Documentation on BibTeX:
 
 http://tug.ctan.org/info/bibtex/tamethebeast/ttb_en.pdf
 
