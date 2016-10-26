@@ -593,6 +593,77 @@ static void abbreviate(Entries& entries) {
   }
 }
 
+static void conference_to_inproceedings(Entries& entries) {
+  for (auto& entry : entries)
+    if (entry.type == "conference")
+      entry.type = "inproceedings";
+}
+
+static Fields::const_iterator find_field(Entry const& entry, std::string const& field_name) {
+  return std::find_if(begin(entry.fields), end(entry.fields),
+      [&](Field const& field)->bool { return field.name == field_name; });
+}
+
+static Entries::const_iterator find_entry(Entries const& entries, std::string const& key) {
+  return std::find_if(begin(entries), end(entries),
+      [&](Entry const& entry)->bool { return entry.key == key; });
+}
+
+static bool has_field(Entry const& entry, std::string const& field_name) {
+  return entry.fields.end() != find_field(entry, field_name);
+}
+
+static bool has_entry(Entries const& entries, std::string const& key) {
+  return entries.end() != find_entry(entries, key);
+}
+
+static std::string const& get_field(Entry const& entry, std::string const& field_name) {
+  return find_field(entry, field_name)->value;
+}
+
+static Entry const& get_entry(Entries const& entries, std::string const& key) {
+  return *(find_entry(entries, key));
+}
+
+static bool has_indirect_field(Entries const& entries, Entry const& entry,
+    std::string const& field_name) {
+  if (has_field(entry, field_name)) return true;
+  if (!has_field(entry, "crossref")) return false;
+  auto other_name = get_field(entry, "crossref");
+  if (!has_entry(entries, other_name)) {
+    std::cout << "WARNING: " << entry.key << " crossref " << other_name << " not found\n";
+    return false;
+  }
+  auto other = get_entry(entries, other_name);
+  return has_field(other, field_name);
+}
+
+static void warn_missing_field(Entries const& entries, Entry const& entry, std::string const& field_name) {
+  if (!has_indirect_field(entries, entry, field_name))
+    std::cout << entry.key << " has no " << field_name << "\n";
+}
+
+static void warn_missing_fields(Entries& entries) {
+  for (auto& entry : entries) {
+    if (entry.type == "inproceedings") {
+      warn_missing_field(entries, entry, "title");
+      warn_missing_field(entries, entry, "booktitle");
+      warn_missing_field(entries, entry, "author");
+      warn_missing_field(entries, entry, "year");
+      warn_missing_field(entries, entry, "month");
+      warn_missing_field(entries, entry, "address");
+    } else if (entry.type == "article") {
+      warn_missing_field(entries, entry, "title");
+      warn_missing_field(entries, entry, "author");
+      warn_missing_field(entries, entry, "year");
+      warn_missing_field(entries, entry, "month");
+      warn_missing_field(entries, entry, "volume");
+      warn_missing_field(entries, entry, "number");
+      warn_missing_field(entries, entry, "pages");
+    }
+  }
+}
+
 int main(int argc, char** argv) {
   bool inplace = false;
   const char* inpath = nullptr;
@@ -618,10 +689,12 @@ int main(int argc, char** argv) {
     parser.run(file);
   }
   auto& entries = parser.get_entries();
-  comment_out_article_urls(entries);
+  conference_to_inproceedings(entries);
   remove_fields(entries, "file");
   remove_fields(entries, "abstract");
+  comment_out_article_urls(entries);
   abbreviate(entries);
+  warn_missing_fields(entries);
   {
     std::ofstream file(outpath);
     if (!file.is_open()) {
