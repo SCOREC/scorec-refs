@@ -352,23 +352,31 @@ static char const* const known_abbreviations[][2] = {
 {"Acoustics","Acoust."},
 {"Administration","Admin."},
 {"Administrative","Administ."},
+{"Advances","Adv."},
+{"Advancing","Adv."},
 {"American","Amer."},
 {"Analysis","Anal."},
 {"Annals","Ann."},
 {"Annual","Annu."},
+{"Animal","Anim."},
 {"Apparatus","App."},
 {"Applications","Appl."},
 {"Applied","Appl."},
+{"Architectural","Arch."},
 {"Association","Assoc."},
 {"Automatic","Automat."},
+{"Biology","Bio."},
 {"British","Brit."},
 {"Broadcasting","Broadcast."},
 {"Business","Bus."},
+{"Bulletin","Bull."},
 {"Canadian","Can."},
 {"Chinese","Chin."},
+{"Colloquium","Colloq."},
 {"Communications","Commun."},
 {"Computer","Comput."},
 {"Computers","Comput."},
+{"Computing","Comput."},
 {"Conference","Conf."},
 {"Congress","Congr."},
 {"Convention","Conv."},
@@ -377,6 +385,7 @@ static char const* const known_abbreviations[][2] = {
 {"Department","Dept."},
 {"Development","Develop."},
 {"Digest","Dig."},
+{"Ecology","Ecol."},
 {"Economic","Econ."},
 {"Economics","Econ."},
 {"Education","Edu."},
@@ -386,29 +395,42 @@ static char const* const known_abbreviations[][2] = {
 {"Ergonomics","Ergonom."},
 {"European","Eur."},
 {"Evolutionary","Evol."},
+{"Exposition","Expo"},
 {"Foundation","Found."},
 {"Geoscience","Geosci."},
 {"Graphics","Graph."},
 {"Industrial","Ind."},
+{"Industry","Ind."},
 {"Information","Inform."},
 {"Institute","Inst."},
 {"Intelligence","Intell."},
 {"International","Int."},
 {"Japan","Jpn."},
 {"Journal","J."},
+{"Laboratory","Lab"},
+{"Laboratories","Labs"},
+{"Language","Lang."},
+{"Languages","Lang."},
+{"Learning","Learn."},
 {"Letter","Lett."},
 {"Letters","Lett."},
 {"Machine","Mach."},
 {"Magazine","Mag."},
 {"Management","Manage."},
 {"Managing","Manag."},
+{"Mathematic","Math."},
 {"Mathematical","Math."},
+{"Mathematics","Math."},
 {"Mechanical","Mech."},
+{"Mechanics","Mech."},
 {"Meeting","Meeting"},
 {"National","Nat."},
 {"Newsletter","Newslett."},
 {"Nuclear","Nucl."},
+{"Network","Netw."},
+{"Networks","Netw."},
 {"Occupation","Occupat."},
+{"Organization","Org."},
 {"Operational","Oper."},
 {"Optical","Opt."},
 {"Optics","Opt."},
@@ -418,8 +440,9 @@ static char const* const known_abbreviations[][2] = {
 {"Processing","Process."},
 {"Production","Prod."},
 {"Productivity","Productiv."},
-{"Quarterly","Quart."},
+// {"Quarterly","Quart."},
 {"Record","Rec."},
+{"Recognition","Recog."},
 {"Reliability","Rel."},
 {"Report","Rep."},
 {"Research","Res."},
@@ -432,6 +455,7 @@ static char const* const known_abbreviations[][2] = {
 {"Statistics","Statist."},
 {"Studies","Stud."},
 {"Supplement","Suppl."},
+{"Support","Sup."},
 {"Symposium","Symp."},
 {"Systems","Syst."},
 {"Technical","Tech."},
@@ -439,7 +463,9 @@ static char const* const known_abbreviations[][2] = {
 {"Technology","Technol."},
 {"Telecommunications","Telecommun."},
 {"Transactions","Trans."},
+{"University","Univ."},
 {"Vehicular","Veh."},
+{"Vision","Vis."},
 {"Working","Work."}
 };
 
@@ -448,7 +474,9 @@ static char const* const known_abbreviations[][2] = {
 static StringMap get_abbreviations() {
   StringMap m;
   for (size_t i = 0; i < ARRAY_SIZE(known_abbreviations); ++i) {
-    m[known_abbreviations[i][0]] = known_abbreviations[i][1];
+    std::string name(known_abbreviations[i][0]);
+    make_lowercase(name);
+    m[name] = known_abbreviations[i][1];
   }
   return m;
 }
@@ -505,7 +533,8 @@ static void abbreviate(Entries& entries) {
       if (text_fields.count(field.name) || is_string) {
         auto words = split_text(field.value);
         for (auto& word : words) {
-          auto it = abbrevs.find(word);
+          auto lword = as_lowercase(word);
+          auto it = abbrevs.find(lword);
           if (it != abbrevs.end()) word = it->second;
         }
         field.value = unsplit_text(words);
