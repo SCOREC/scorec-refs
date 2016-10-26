@@ -1,3 +1,6 @@
+affects the sorting of entries but not their output
+used to give an imaginary year to entries not yet published
+@preamble{ "\newcommand{\noop}[1]{}" }
 @string{ijnmf={Int. J. Numerical Methods in Fluids}}
 @string{cmame={Comput. Methods in Appl. Mech. and Eng.}}
 @string{ijnme={Int. J. Numerical Methods in Eng.}}
@@ -2108,5 +2111,12 @@ http://tex.stackexchange.com/questions/123252/how-to-manage-conference-proceedin
   month=sep # " 16--29,",
   address={Washington, DC},
   publisher={Elsevier}
+}
+
+@article{ibanez2017modifiable,
+  author={Dan Ibanez and Mark S. Shephard},
+  title={Modifiable Array Data Structures for Mesh Topology},
+  journal={SIAM J. Scientific Comput.},
+  year={\noop{3001}under review}
 }
 
