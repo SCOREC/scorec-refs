@@ -140,7 +140,11 @@ public:
           else if (c == '{') {
             make_lowercase(entries.back().type);
             if (entries.back().type == "string") state = FIELD_LIMBO;
-            else state = ENTRY_KEY;
+            else if (entries.back().type == "preamble") {
+              entries.back().fields.push_back(Field());
+              entries.back().fields.back().name = "preamble";
+              state = FIELD_POST_EQUAL;
+            } else state = ENTRY_KEY;
           }
           else if (std::isalpha(c)) {
             entries.back().type.push_back(c);
@@ -293,6 +297,11 @@ static void print_entry(std::ostream& stream, Entry const& entry) {
     stream << "@" << entry.type << "{";
     print_field2(stream, entry.fields.back());
     stream << "}\n";
+    return;
+  }
+  if (entry.type == "preamble") {
+    stream << "@" << entry.type << "{ \"";
+    stream << entry.fields.back().value << "\" }\n";
     return;
   }
   stream << "@" << entry.type << "{";
