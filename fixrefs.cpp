@@ -604,6 +604,11 @@ static Fields::const_iterator find_field(Entry const& entry, std::string const& 
       [&](Field const& field)->bool { return field.name == field_name; });
 }
 
+static Fields::iterator find_field(Entry& entry, std::string const& field_name) {
+  return std::find_if(begin(entry.fields), end(entry.fields),
+      [&](Field const& field)->bool { return field.name == field_name; });
+}
+
 static Entries::const_iterator find_entry(Entries const& entries, std::string const& key) {
   return std::find_if(begin(entries), end(entries),
       [&](Entry const& entry)->bool { return entry.key == key; });
@@ -664,6 +669,72 @@ static void warn_missing_fields(Entries& entries) {
   }
 }
 
+static void remove_empty_fields(Entries& entries) {
+  for (auto& entry : entries) {
+    for (size_t i = 0; i < entry.fields.size();) {
+      if (entry.fields[i].value.size() == 0)
+        entry.fields.erase(entry.fields.begin() + i);
+      else
+        ++i;
+    }
+  }
+}
+
+static char const* const month_names[] = {
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
+};
+
+/* find a first word in the month field that is case-insensitively
+   a prefix of a month name, and replace it with the first
+   three characters of that month name, which is the magic
+   identifier understood by bibtex.
+   also remove quotes or braces around this field value */
+static void fix_months(Entries& entries) {
+  StringVector months;
+  for (size_t i = 0; i < ARRAY_SIZE(month_names); ++i) {
+    std::string month_name(month_names[i]);
+    make_lowercase(month_name);
+    months.push_back(month_name);
+  }
+  for (auto& entry : entries) {
+    auto it = find_field(entry, "month");
+    if (it == entry.fields.end()) continue;
+    auto& field = *it;
+    std::string word;
+    for (auto c : field.value) {
+      if (std::isalpha(c)) word.push_back(std::tolower(c));
+      else break;
+    }
+    auto orig_len = word.length();
+    std::cerr << "length " << word.length() << '\n';
+    if (word.length() >= 3) {
+      for (auto month : months) {
+        auto res = month.compare(0, word.length(), word);
+        if (res == 0) {
+          std::cerr << word << " matches " << month << '\n';
+          word = month.substr(0, 3);
+          break;
+        }
+      }
+    }
+    std::cerr << "before " << field.value;
+    field.value = word + field.value.substr(orig_len, std::string::npos);
+    std::cerr << " after " << field.value << '\n';
+    field.limit = FVL_NONE;
+  }
+}
+
 int main(int argc, char** argv) {
   bool inplace = false;
   const char* inpath = nullptr;
@@ -690,10 +761,12 @@ int main(int argc, char** argv) {
   }
   auto& entries = parser.get_entries();
   conference_to_inproceedings(entries);
+  remove_empty_fields(entries);
   remove_fields(entries, "file");
   remove_fields(entries, "abstract");
   comment_out_article_urls(entries);
   abbreviate(entries);
+  fix_months(entries);
   warn_missing_fields(entries);
   {
     std::ofstream file(outpath);
