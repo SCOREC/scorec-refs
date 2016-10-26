@@ -562,6 +562,7 @@ static void abbreviate(Entries& entries) {
   StringSet text_fields;
   text_fields.insert(std::string("booktitle"));
   text_fields.insert(std::string("journal"));
+  text_fields.insert(std::string("organization"));
   auto abbrevs = get_abbreviations();
   auto procs = get_abbrev_proc_names();
   auto preps = get_prepositions();
