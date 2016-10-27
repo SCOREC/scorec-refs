@@ -765,6 +765,7 @@ int main(int argc, char** argv) {
   remove_fields(entries, "file");
   remove_fields(entries, "abstract");
   remove_fields(entries, "keywords");
+  remove_fields(entries, "note");
   comment_out_urls(entries);
   abbreviate(entries);
   fix_months(entries);
