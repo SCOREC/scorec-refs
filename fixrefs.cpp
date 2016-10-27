@@ -718,20 +718,16 @@ static void fix_months(Entries& entries) {
       else break;
     }
     auto orig_len = word.length();
-    std::cerr << "length " << word.length() << '\n';
     if (word.length() >= 3) {
       for (auto month : months) {
         auto res = month.compare(0, word.length(), word);
         if (res == 0) {
-          std::cerr << word << " matches " << month << '\n';
           word = month.substr(0, 3);
           break;
         }
       }
     }
-    std::cerr << "before " << field.value;
     field.value = word + field.value.substr(orig_len, std::string::npos);
-    std::cerr << " after " << field.value << '\n';
     field.limit = FVL_NONE;
   }
 }
