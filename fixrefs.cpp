@@ -664,6 +664,7 @@ static void warn_missing_fields(Entries& entries) {
       warn_missing_field(entries, entry, "year");
       warn_missing_field(entries, entry, "month");
       warn_missing_field(entries, entry, "volume");
+      warn_missing_field(entries, entry, "number");
       warn_missing_field(entries, entry, "pages");
     }
   }
