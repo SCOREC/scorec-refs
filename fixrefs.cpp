@@ -38,6 +38,37 @@ struct Entry {
 
 using Entries = std::vector<Entry>;
 
+static Fields::const_iterator find_field(Entry const& entry, std::string const& field_name) {
+  return std::find_if(begin(entry.fields), end(entry.fields),
+      [&](Field const& field)->bool { return field.name == field_name; });
+}
+
+static Fields::iterator find_field(Entry& entry, std::string const& field_name) {
+  return std::find_if(begin(entry.fields), end(entry.fields),
+      [&](Field const& field)->bool { return field.name == field_name; });
+}
+
+static Entries::const_iterator find_entry(Entries const& entries, std::string const& key) {
+  return std::find_if(begin(entries), end(entries),
+      [&](Entry const& entry)->bool { return entry.key == key; });
+}
+
+static bool has_field(Entry const& entry, std::string const& field_name) {
+  return entry.fields.end() != find_field(entry, field_name);
+}
+
+static bool has_entry(Entries const& entries, std::string const& key) {
+  return entries.end() != find_entry(entries, key);
+}
+
+static std::string const& get_field(Entry const& entry, std::string const& field_name) {
+  return find_field(entry, field_name)->value;
+}
+
+static Entry const& get_entry(Entries const& entries, std::string const& key) {
+  return *(find_entry(entries, key));
+}
+
 enum ParserState {
   LIMBO,
   ENTRY_TYPE,
@@ -354,6 +385,18 @@ static void remove_fields(Entries& entries, std::string const& name) {
   }
 }
 
+static void rename_fields(Entries& entries, std::string const& from, std::string const& to) {
+  for (auto& entry : entries) {
+    for (auto& field : entry.fields) {
+      if (field.name == from) {
+        auto existing_it = find_field(entry, to);
+        if (existing_it != entry.fields.end()) entry.fields.erase(existing_it);
+        field.name = to;
+      }
+    }
+  }
+}
+
 #define ARRAY_SIZE(a) (sizeof(a)/sizeof(a[0]))
 
 /* IEEE Editorial Style Manual Appendix D
@@ -593,41 +636,23 @@ static void abbreviate(Entries& entries) {
   }
 }
 
+static void escape_ampersand(Entries& entries) {
+  StringSet field_names = { "publisher", "journal" };
+  for (auto& entry : entries) {
+    for (auto& field : entry.fields) {
+      if (field_names.count(field.name)) {
+        auto words = split_text(field.value);
+        for (auto& word : words) if (word == "&") word = "\\&";
+        field.value = unsplit_text(words);
+      }
+    }
+  }
+}
+
 static void conference_to_inproceedings(Entries& entries) {
   for (auto& entry : entries)
     if (entry.type == "conference")
       entry.type = "inproceedings";
-}
-
-static Fields::const_iterator find_field(Entry const& entry, std::string const& field_name) {
-  return std::find_if(begin(entry.fields), end(entry.fields),
-      [&](Field const& field)->bool { return field.name == field_name; });
-}
-
-static Fields::iterator find_field(Entry& entry, std::string const& field_name) {
-  return std::find_if(begin(entry.fields), end(entry.fields),
-      [&](Field const& field)->bool { return field.name == field_name; });
-}
-
-static Entries::const_iterator find_entry(Entries const& entries, std::string const& key) {
-  return std::find_if(begin(entries), end(entries),
-      [&](Entry const& entry)->bool { return entry.key == key; });
-}
-
-static bool has_field(Entry const& entry, std::string const& field_name) {
-  return entry.fields.end() != find_field(entry, field_name);
-}
-
-static bool has_entry(Entries const& entries, std::string const& key) {
-  return entries.end() != find_entry(entries, key);
-}
-
-static std::string const& get_field(Entry const& entry, std::string const& field_name) {
-  return find_field(entry, field_name)->value;
-}
-
-static Entry const& get_entry(Entries const& entries, std::string const& key) {
-  return *(find_entry(entries, key));
 }
 
 static bool has_indirect_field(Entries const& entries, Entry const& entry,
@@ -763,8 +788,10 @@ int main(int argc, char** argv) {
   remove_fields(entries, "abstract");
   remove_fields(entries, "keywords");
   remove_fields(entries, "note");
+  rename_fields(entries, "location", "address");
   comment_out_urls(entries);
   abbreviate(entries);
+  escape_ampersand(entries);
   fix_months(entries);
   warn_missing_fields(entries);
   {
