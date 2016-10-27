@@ -656,6 +656,7 @@ static void warn_missing_fields(Entries& entries) {
       warn_missing_field(entries, entry, "author");
       warn_missing_field(entries, entry, "year");
       warn_missing_field(entries, entry, "month");
+      warn_missing_field(entries, entry, "day");
       warn_missing_field(entries, entry, "address");
     } else if (entry.type == "article") {
       warn_missing_field(entries, entry, "title");
