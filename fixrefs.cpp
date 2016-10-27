@@ -324,7 +324,7 @@ static void print_entries(std::ostream& stream, Entries const& entries) {
 static void comment_out_urls(Entries& entries) {
   Entry new_entry;
   new_entry.type = "comment";
-  StringSet types = { "article", "inproceedings", "incollection" };
+  StringSet types = { "article", "inproceedings", "incollection", "inbook" };
   for (size_t i = 0; i < entries.size(); ++i) {
     auto& entry = entries[i];
     if (!types.count(entry.type)) continue;
