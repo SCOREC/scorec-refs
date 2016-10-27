@@ -1920,7 +1920,7 @@ FUNCTION {format.url}
         space.normal 'this.status.space :=
         space.normal 'prev.status.space :=
         quote.no 'this.status.quote :=
-        urldate empty$
+        urldate missing$
           { "there's a url but no urldate in " cite$ * warning$ }
           { " (Date Last Accessed: " urldate * ")" * * }
         if$
