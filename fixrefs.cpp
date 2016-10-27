@@ -321,12 +321,13 @@ static void print_entries(std::ostream& stream, Entries const& entries) {
    may not want to lose the URL, so I'll copy it up
    into a comment above the entry.
  */
-static void comment_out_article_urls(Entries& entries) {
+static void comment_out_urls(Entries& entries) {
   Entry new_entry;
   new_entry.type = "comment";
+  StringSet types = { "article", "inproceedings", "incollection" };
   for (size_t i = 0; i < entries.size(); ++i) {
     auto& entry = entries[i];
-    if (entry.type != "article") continue;
+    if (!types.count(entry.type)) continue;
     size_t j;
     for (j = 0; j < entry.fields.size(); ++j) {
       auto const& f = entry.fields[j];
@@ -764,7 +765,7 @@ int main(int argc, char** argv) {
   remove_fields(entries, "file");
   remove_fields(entries, "abstract");
   remove_fields(entries, "keywords");
-  comment_out_article_urls(entries);
+  comment_out_urls(entries);
   abbreviate(entries);
   fix_months(entries);
   warn_missing_fields(entries);
