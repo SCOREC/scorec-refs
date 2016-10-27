@@ -346,11 +346,9 @@ static void comment_out_article_urls(Entries& entries) {
 
 static void remove_fields(Entries& entries, std::string const& name) {
   for (auto& entry : entries) {
-    for (auto it = begin(entry.fields); it != end(entry.fields); ++it) {
-      if (it->name == name) {
-        entry.fields.erase(it);
-        break;
-      }
+    for (auto it = begin(entry.fields); it != end(entry.fields);) {
+      if (it->name == name) entry.fields.erase(it);
+      else ++it;
     }
   }
 }
@@ -765,6 +763,7 @@ int main(int argc, char** argv) {
   remove_empty_fields(entries);
   remove_fields(entries, "file");
   remove_fields(entries, "abstract");
+  remove_fields(entries, "keywords");
   comment_out_article_urls(entries);
   abbreviate(entries);
   fix_months(entries);
