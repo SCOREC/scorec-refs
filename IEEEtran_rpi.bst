@@ -1185,7 +1185,12 @@ FUNCTION {format.address.org.or.pub.date}
                 { year "year" bibinfo.check * }
               if$
             }
-            { month "month" bibinfo.check *
+            { month "month" bibinfo.check
+              day missing$
+                'skip$
+                { " " * day * "," * }
+              if$
+              *
               year empty$
                  { skip$ }
                  { " " * year "year" bibinfo.check * }
