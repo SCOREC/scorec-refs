@@ -48,6 +48,18 @@ make
 ./fixrefs -i myrefs.bib
 ```
 
+And finally we provide a BST file `IEEEtran_rpi.bst` which is a
+customized version of `IEEEtran.bst` which will turn the `urldate`
+field of an `electronic` entry into a ` (Date Last Accessed: )` note,
+and will include the `day` field of an
+`inproceedings` entry after the month,
+both things asked for by the RPI OGE.
+Use this file as follows:
+
+```
+\bibliographystyle{scorec-refs/IEEEtran_rpi.bst}
+```
+
 Documentation on BibTeX:
 
 http://tug.ctan.org/info/bibtex/tamethebeast/ttb_en.pdf
