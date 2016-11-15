@@ -692,6 +692,7 @@ static void warn_missing_fields(Entries& entries) {
       warn_missing_field(entries, entry, "year");
       warn_missing_field(entries, entry, "month");
       warn_missing_field(entries, entry, "day");
+      warn_missing_field(entries, entry, "address");
     } else if (entry.type == "article") {
       warn_missing_field(entries, entry, "title");
       warn_missing_field(entries, entry, "author");
@@ -710,12 +711,21 @@ static void warn_missing_fields(Entries& entries) {
       warn_missing_field(entries, entry, "author");
       warn_missing_field(entries, entry, "publisher");
       warn_missing_field(entries, entry, "address");
+      warn_missing_field(entries, entry, "year");
     } else if (entry.type == "inbook") {
       warn_missing_field(entries, entry, "title");
       warn_missing_field(entries, entry, "booktitle");
       warn_missing_field(entries, entry, "author");
       warn_missing_field(entries, entry, "publisher");
       warn_missing_field(entries, entry, "address");
+      warn_missing_field(entries, entry, "year");
+    } else if (entry.type == "techreport") {
+      warn_missing_field(entries, entry, "title");
+      warn_missing_field(entries, entry, "author");
+      warn_missing_field(entries, entry, "institution");
+      warn_missing_field(entries, entry, "address");
+      warn_missing_field(entries, entry, "number");
+      warn_missing_field(entries, entry, "year");
     }
   }
 }
@@ -813,9 +823,9 @@ int main(int argc, char** argv) {
   remove_fields(entries, "abstract");
   remove_fields(entries, "keywords");
   remove_fields(entries, "note");
-  rename_fields(entries, "location", "address");
-  remove_type_fields(entries, "inproceedings", "address");
   remove_type_fields(entries, "inproceedings", "organization");
+  remove_type_fields(entries, "inproceedings", "publisher");
+  remove_type_fields(entries, "inproceedings", "address");
   remove_type_fields(entries, "proceedings", "address");
   comment_out_urls(entries);
   abbreviate(entries);
