@@ -1340,6 +1340,7 @@ FUNCTION {format.date.electronic}
         { "(" swap$ * ", " * swap$ * ")" * }
       if$
     this.to.prev.status
+    punct.period 'this.status.punct :=
     space.normal 'this.status.space :=
     quote.no 'this.status.quote :=
     cap.yes  'status.cap :=
