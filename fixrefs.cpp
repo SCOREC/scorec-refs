@@ -385,6 +385,16 @@ static void remove_fields(Entries& entries, std::string const& name) {
   }
 }
 
+static void remove_type_fields(Entries& entries, std::string const& type, std::string const& name) {
+  for (auto& entry : entries) {
+    if (entry.type != type) continue;
+    for (auto it = begin(entry.fields); it != end(entry.fields);) {
+      if (it->name == name) entry.fields.erase(it);
+      else ++it;
+    }
+  }
+}
+
 static void rename_fields(Entries& entries, std::string const& from, std::string const& to) {
   for (auto& entry : entries) {
     for (auto& field : entry.fields) {
@@ -682,7 +692,6 @@ static void warn_missing_fields(Entries& entries) {
       warn_missing_field(entries, entry, "year");
       warn_missing_field(entries, entry, "month");
       warn_missing_field(entries, entry, "day");
-      warn_missing_field(entries, entry, "address");
     } else if (entry.type == "article") {
       warn_missing_field(entries, entry, "title");
       warn_missing_field(entries, entry, "author");
@@ -794,6 +803,8 @@ int main(int argc, char** argv) {
   remove_fields(entries, "keywords");
   remove_fields(entries, "note");
   rename_fields(entries, "location", "address");
+  remove_type_fields(entries, "inproceedings", "address");
+  remove_type_fields(entries, "proceedings", "address");
   comment_out_urls(entries);
   abbreviate(entries);
   escape_ampersand(entries);
