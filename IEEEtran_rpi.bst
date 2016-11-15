@@ -1340,7 +1340,6 @@ FUNCTION {format.date.electronic}
         { "(" swap$ * ", " * swap$ * ")" * }
       if$
     this.to.prev.status
-    punct.no 'this.status.punct :=
     space.normal 'this.status.space :=
     quote.no 'this.status.quote :=
     cap.yes  'status.cap :=
@@ -2013,7 +2012,7 @@ FUNCTION {electronic}
   format.authors output
   name.or.dash
   format.date.electronic output
-  format.article.title.electronic output
+  format.article.title "title" output.warn
   format.howpublished "howpublished" bibinfo.check output
   format.organization "organization" bibinfo.check output
   format.address "address" bibinfo.check output
