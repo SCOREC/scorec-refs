@@ -705,6 +705,11 @@ static void warn_missing_fields(Entries& entries) {
       warn_missing_field(entries, entry, "author");
       warn_missing_field(entries, entry, "url");
       warn_missing_field(entries, entry, "urldate");
+    } else if (entry.type == "book") {
+      warn_missing_field(entries, entry, "title");
+      warn_missing_field(entries, entry, "author");
+      warn_missing_field(entries, entry, "publisher");
+      warn_missing_field(entries, entry, "address");
     }
   }
 }
