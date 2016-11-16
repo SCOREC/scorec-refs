@@ -1453,6 +1453,31 @@ FUNCTION {format.article.title.electronic}
   if$
 }
 
+FUNCTION {format.inbook.title.edition}
+{ booktitle "booktitle" bibinfo.check
+  duplicate$ empty$
+    { "empty booktitle in " cite$ * warning$ }
+    { this.to.prev.status
+      this.status.std
+      select.language
+      emphasize
+      edition empty$ 'skip$
+        { ", " *
+          edition
+          convert.edition
+          status.cap
+            { "t" }
+            { "l" }
+          if$
+          change.case$
+          * "~" * bbl.edition *
+        }
+      if$
+      cap.status.std
+    }
+  if$
+}
+
 FUNCTION {format.book.title.edition}
 { title "title" bibinfo.check
   duplicate$ empty$
@@ -2034,10 +2059,11 @@ FUNCTION {inbook}
   if$
   name.or.dash
   title empty$
-    { skip$ }
-    { format.article.title "title" output.warn }
+    { format.inbook.title.edition output }
+    { format.article.title "title" output.warn
+      format.in.booktitle "booktitle" output.warn
+    }
   if$
-  format.in.booktitle "booktitle" output.warn
   format.series output
   format.address.publisher.date output
   format.volume output
