@@ -2033,7 +2033,11 @@ FUNCTION {inbook}
     { format.authors output.nonnull }
   if$
   name.or.dash
-  format.book.title.edition output
+  title empty$
+    { skip$ }
+    { format.article.title "title" output.warn }
+  if$
+  format.in.booktitle "booktitle" output.warn
   format.series output
   format.address.publisher.date output
   format.volume output

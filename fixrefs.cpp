@@ -713,7 +713,6 @@ static void warn_missing_fields(Entries& entries) {
       warn_missing_field(entries, entry, "address");
       warn_missing_field(entries, entry, "year");
     } else if (entry.type == "inbook") {
-      warn_missing_field(entries, entry, "title");
       warn_missing_field(entries, entry, "booktitle");
       warn_missing_field(entries, entry, "author");
       warn_missing_field(entries, entry, "publisher");
