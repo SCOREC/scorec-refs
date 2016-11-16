@@ -826,7 +826,11 @@ int main(int argc, char** argv) {
   remove_type_fields(entries, "inproceedings", "organization");
   remove_type_fields(entries, "inproceedings", "publisher");
   remove_type_fields(entries, "inproceedings", "address");
+  remove_type_fields(entries, "inproceedings", "day");
+  remove_type_fields(entries, "inproceedings", "month");
   remove_type_fields(entries, "proceedings", "address");
+  remove_type_fields(entries, "proceedings", "day");
+  remove_type_fields(entries, "proceedings", "month");
   remove_type_fields(entries, "techreport", "month");
   comment_out_urls(entries);
   abbreviate(entries);
