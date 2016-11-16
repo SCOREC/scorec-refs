@@ -692,7 +692,6 @@ static void warn_missing_fields(Entries& entries) {
       warn_missing_field(entries, entry, "year");
       warn_missing_field(entries, entry, "month");
       warn_missing_field(entries, entry, "day");
-      warn_missing_field(entries, entry, "address");
     } else if (entry.type == "article") {
       warn_missing_field(entries, entry, "title");
       warn_missing_field(entries, entry, "author");
@@ -792,6 +791,19 @@ static void fix_months(Entries& entries) {
   }
 }
 
+static void remove_unwanted_fields(Entries& entries) {
+  remove_empty_fields(entries);
+  remove_fields(entries, "file");
+  remove_fields(entries, "abstract");
+  remove_fields(entries, "keywords");
+  remove_fields(entries, "note");
+  remove_type_fields(entries, "inproceedings", "organization");
+  remove_type_fields(entries, "inproceedings", "publisher");
+  remove_type_fields(entries, "inproceedings", "address");
+  remove_type_fields(entries, "proceedings", "address");
+  remove_type_fields(entries, "techreport", "month");
+}
+
 int main(int argc, char** argv) {
   bool inplace = false;
   const char* inpath = nullptr;
@@ -818,20 +830,7 @@ int main(int argc, char** argv) {
   }
   auto& entries = parser.get_entries();
   conference_to_inproceedings(entries);
-  remove_empty_fields(entries);
-  remove_fields(entries, "file");
-  remove_fields(entries, "abstract");
-  remove_fields(entries, "keywords");
-  remove_fields(entries, "note");
-  remove_type_fields(entries, "inproceedings", "organization");
-  remove_type_fields(entries, "inproceedings", "publisher");
-  remove_type_fields(entries, "inproceedings", "address");
-  remove_type_fields(entries, "inproceedings", "day");
-  remove_type_fields(entries, "inproceedings", "month");
-  remove_type_fields(entries, "proceedings", "address");
-  remove_type_fields(entries, "proceedings", "day");
-  remove_type_fields(entries, "proceedings", "month");
-  remove_type_fields(entries, "techreport", "month");
+  remove_unwanted_fields(entries);
   comment_out_urls(entries);
   abbreviate(entries);
   escape_ampersand(entries);
