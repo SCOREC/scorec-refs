@@ -202,13 +202,14 @@ MPI's neighborhood collectives
   publisher={Springer}
 }
 
-@incollection{thakur2003improving,
+@inproceedings{thakur2003improving,
   title={Improving the performance of collective operations in {MPICH}},
   author={Thakur, Rajeev and Gropp, William D},
-  booktitle={Recent Adv. in Parallel Virtual Mach. and Message Passing Interface},
+  booktitle={Proc. 10th European PVM/MPI User’s Group Meeting},
   pages={257--267},
   year={2003},
-  publisher={Springer}
+  month=sep,
+  day={29--30}
 }
 
 url={http://scitation.aip.org/content/aip/journal/cise/16/6/10.1109/MCSE.2014.75}
@@ -1375,7 +1376,7 @@ partitioning overview
   title={Sourcebook of parallel computing},
   year={2003},
   isbn={1-55860-871-0},
-  publisher={Morgan Kaufmann Publishers Inc.},
+  publisher={Elsevier},
   address={San Francisco, CA, USA}
 }
 
@@ -1878,7 +1879,7 @@ url={http://dx.doi.org/10.1007/s02011-011-1137-8}
   title={Intel Xeon Phi Coprocessor High-Performance Programming},
   author={Jeffers, James and Reinders, James},
   year={2013},
-  publisher={Morgan Kaufmann},
+  publisher={Elsevier},
   address={Waltham, MA}
 }
 
@@ -1887,7 +1888,7 @@ reference for why CPUs became multi-core
   title={Computer Architecture: a Quantitative Approach},
   author={Hennessy, John L and Patterson, David A},
   year={2011},
-  publisher={Morgan Kaufmann},
+  publisher={Elsevier},
   address={Waltham, MA}
 }
 
@@ -1963,15 +1964,18 @@ url={http://dx.doi.org/10.1007/BF01451597}
   address={Philadelphia, PA}
 }
 
+url={http://www.sciencedirect.com/science/article/pii/S0045782500002942}
 @article{pain2001tetrahedral,
   title={Tetrahedral mesh optimisation and adaptivity for steady-state and transient finite element calculations},
-  author={Pain, CC and Umpleby, AP and De Oliveira, CRE and Goddard, AJH},
   journal={Comput. Methods in Appl. Mech. and Eng.},
   volume={190},
-  number={29},
-  pages={3771--3796},
+  number={29-30},
+  pages={3771 - 3796},
   year={2001},
-  publisher={Elsevier}
+  month=apr,
+  issn={0045-7825},
+  doi={http://dx.doi.org/10.1016/S0045-7825(00)00294-2},
+  author={C.C. Pain and A.P. Umpleby and C.R.E. de Oliveira and A.J.H. Goddard}
 }
 
 @inproceedings{navarro2011parallel,
@@ -2047,52 +2051,68 @@ url={http://www.sciencedirect.com/science/article/pii/S0045782510002276}
   author={P.E. Farrell and J.R. Maddison}
 }
 
+url={http://www.sciencedirect.com/science/article/pii/S0021999115003563}
 @article{powell2015exact,
   title={An exact general remeshing scheme applied to physically conservative voxelization},
-  author={Powell, Devon and Abel, Tom},
   journal={J. Computational Physics},
   volume={297},
-  pages={340--356},
+  number={1},
+  pages={340 - 356},
   year={2015},
-  publisher={Elsevier}
+  month=sep,
+  issn={0021-9991},
+  doi={http://dx.doi.org/10.1016/j.jcp.2015.05.022},
+  author={Devon Powell and Tom Abel}
 }
 
+url={http://doi.acm.org/10.1145/1327452.1327492}
 @article{dean2008mapreduce,
-  title={MapReduce: simplified data processing on large clusters},
   author={Dean, Jeffrey and Ghemawat, Sanjay},
-  journal={Commun. of the ACM},
+  title={MapReduce: Simplified Data Processing on Large Clusters},
+  journal={Commun. ACM},
+  issue_date={January 2008},
   volume={51},
   number={1},
-  pages={107--113},
+  month=jan,
   year={2008},
-  publisher={ACM}
+  issn={0001-0782},
+  pages={107--113},
+  numpages={7},
+  doi={10.1145/1327452.1327492},
+  acmid={1327492},
+  publisher={ACM},
+  address={New York, NY, USA}
 }
 
 @inproceedings{satish2009designing,
   title={Designing efficient sorting algorithms for manycore GPUs},
   author={Satish, Nadathur and Harris, Mark and Garland, Michael},
-  booktitle={Parallel \& Distributed Process., 2009. IPDPS 2009. IEEE Int. Symp.},
+  booktitle={IEEE Int. Symp. Parallel \& Distributed Process.},
   pages={1--10},
-  year={2009}
+  year={2009},
+  month=may,
+  day={25--29}
 }
 
 definition of strict weak ordering
-@book{roberts2009applied,
-  title={Applied combinatorics},
+@inbook{roberts2009applied,
+  title={Applied Combinatorics},
   author={Roberts, Fred and Tesman, Barry},
   year={2009},
   publisher={CRC Press},
+  address={Boca Raton, FL},
   pages={254--256}
 }
 
-@article{bell2011thrust,
-  title={Thrust: A productivity-oriented library for CUDA},
+@inbook{bell2011thrust,
+  title={{Thrust}: A productivity-oriented library for {CUDA}},
   author={Bell, Nathan and Hoberock, Jared},
-  journal={GPU Comput. gems Jade edition},
-  volume={2},
+  booktitle={GPU Comput. gems Jade edition},
+  chapter={26},
   pages={359--371},
   year={2011},
-  publisher={Elsevier}
+  publisher={Elsevier},
+  address={Waltham, MA}
 }
 
 @electronic{robinson2014parallel,
@@ -2158,9 +2178,10 @@ url={http://scitation.aip.org/content/aip/proceeding/aipcp/10.1063/1.1751381}
   title={Comparing anisotropic output-based grid adaptation methods by decomposition},
   author={Park, Michael A and Loseille, Adrien and Krakos, Joshua A and Michal, Todd},
   booktitle={22nd AIAA Computational Fluid Dynamics Conf.},
-  journal={AIAA Aviation},
-  volume={2292},
-  year={2015}
+  year={2015},
+  month=jun,
+  day={22--26},
+  pages={1-30}
 }
 
 @article{geuzaine2009gmsh,
