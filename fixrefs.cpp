@@ -611,17 +611,16 @@ static std::string unsplit_text(StringVector const& v) {
 }
 
 static void abbreviate(Entries& entries) {
-  StringSet text_fields;
-  text_fields.insert(std::string("booktitle"));
-  text_fields.insert(std::string("journal"));
-  text_fields.insert(std::string("organization"));
   auto abbrevs = get_abbreviations();
   auto procs = get_abbrev_proc_names();
   auto preps = get_prepositions();
   for (auto& entry : entries) {
-    auto is_string = entry.type == "string";
     for (auto& field : entry.fields) {
-      if (text_fields.count(field.name) || is_string) {
+      if (entry.type == "string" ||
+          field.name == "journal" ||
+          field.name == "organization" ||
+          field.name == "institution" ||
+          (field.name == "booktitle" && entry.type != "inbook")) {
         auto words = split_text(field.value);
         /* first abbreviate single words */
         for (auto& word : words) {
