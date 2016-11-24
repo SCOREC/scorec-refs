@@ -806,6 +806,63 @@ static void remove_unwanted_fields(Entries& entries) {
   remove_type_fields(entries, "techreport", "month");
 }
 
+static std::string unify_dashed_value(std::string const& value,
+    bool must_have_dash) {
+  enum { LEFT_SPACE, LEFT, DASH, RIGHT, RIGHT_SPACE } state = LEFT_SPACE;
+  std::string left_str;
+  std::string right_str;
+  for (size_t i = 0; i < value.length(); ++i) {
+    switch (state) {
+      case LEFT_SPACE:
+        if (!std::isspace(value[i])) {
+          left_str.push_back(value[i]);
+          state = LEFT;
+        }
+        break;
+      case LEFT:
+        if (value[i] == ' ' || value[i] == '-') state = DASH;
+        else left_str.push_back(value[i]);
+        break;
+      case DASH:
+        if (!(value[i] == ' ' || value[i] == '-')) {
+          right_str.push_back(value[i]);
+          state = RIGHT;
+        }
+        break;
+      case RIGHT:
+        if (std::isspace(value[i])) state = RIGHT_SPACE;
+        else right_str.push_back(value[i]);
+        break;
+      case RIGHT_SPACE:
+        if (!(std::isspace(value[i]))) {
+          std::cout << "too many spaces in dashed value \"" << value << "\"\n";
+          return value;
+        }
+        break;
+    };
+  }
+  if (!(state == RIGHT || state == RIGHT_SPACE)) {
+    if (must_have_dash) {
+      std::cout << "expected dash in value \"" << value << "\"\n";
+    }
+    return value;
+  }
+  return left_str + "-" + right_str;
+}
+
+static void unify_dashes(Entries& entries) {
+  for (auto& entry : entries) {
+    for (auto& field : entry.fields) {
+      if (field.name == "pages") {
+        field.value = unify_dashed_value(field.value, true);
+      }
+      if (field.name == "number" && entry.type != "techreport") {
+        field.value = unify_dashed_value(field.value, false);
+      }
+    }
+  }
+}
+
 int main(int argc, char** argv) {
   bool inplace = false;
   const char* inpath = nullptr;
@@ -837,6 +894,7 @@ int main(int argc, char** argv) {
   abbreviate(entries);
   escape_ampersand(entries);
   fix_months(entries);
+  unify_dashes(entries);
   warn_missing_fields(entries);
   {
     std::ofstream file(outpath);
