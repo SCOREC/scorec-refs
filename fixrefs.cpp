@@ -856,7 +856,8 @@ static void unify_dashes(Entries& entries) {
       if (field.name == "pages") {
         field.value = unify_dashed_value(field.value, true);
       }
-      if (field.name == "number" && entry.type != "techreport") {
+      if ((field.name == "number" && entry.type != "techreport") ||
+          (field.name == "day")) {
         field.value = unify_dashed_value(field.value, false);
       }
     }
