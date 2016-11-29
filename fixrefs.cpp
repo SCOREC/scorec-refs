@@ -545,7 +545,8 @@ static StringSet get_abbrev_proc_names() {
     "J.",
     "Proc.",
     "Symp.",
-    "Trans."
+    "Trans.",
+    "Dept."
   };
   return s;
 }
@@ -620,6 +621,7 @@ static void abbreviate(Entries& entries) {
           field.name == "journal" ||
           field.name == "organization" ||
           field.name == "institution" ||
+          field.name == "school" ||
           (field.name == "booktitle" && entry.type != "inbook")) {
         auto words = split_text(field.value);
         /* first abbreviate single words */
@@ -723,6 +725,18 @@ static void warn_missing_fields(Entries& entries) {
       warn_missing_field(entries, entry, "institution");
       warn_missing_field(entries, entry, "address");
       warn_missing_field(entries, entry, "number");
+      warn_missing_field(entries, entry, "year");
+    } else if (entry.type == "phdthesis") {
+      warn_missing_field(entries, entry, "title");
+      warn_missing_field(entries, entry, "author");
+      warn_missing_field(entries, entry, "school");
+      warn_missing_field(entries, entry, "address");
+      warn_missing_field(entries, entry, "year");
+    } else if (entry.type == "mastersthesis") {
+      warn_missing_field(entries, entry, "title");
+      warn_missing_field(entries, entry, "author");
+      warn_missing_field(entries, entry, "school");
+      warn_missing_field(entries, entry, "address");
       warn_missing_field(entries, entry, "year");
     }
   }
