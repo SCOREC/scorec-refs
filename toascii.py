@@ -45,7 +45,7 @@ def uni2tex(text):
 
 if __name__ == '__main__':
     fi = open(sys.argv[1], 'r')
-    ti = unicode(fi.read(), "utf-8")
+    ti = unicode(fi.read(), "utf-8-sig")
     fi.close()
     to = uni2tex(ti)
     fo = open(sys.argv[2], 'w')

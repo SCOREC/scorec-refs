@@ -210,7 +210,7 @@ FUNCTION {bbl.revision}{ "Rev." }
 FUNCTION {bbl.series}{ "ser." }
 FUNCTION {bbl.standard}{ "Std." }
 FUNCTION {bbl.techrep}{ "Tech. Rep." }
-FUNCTION {bbl.mthesis}{ "Master's thesis" }
+FUNCTION {bbl.mthesis}{ "M.S. thesis" }
 FUNCTION {bbl.phdthesis}{ "Ph.D. dissertation" }
 FUNCTION {bbl.st}{ "st" }
 FUNCTION {bbl.nd}{ "nd" }
@@ -1340,7 +1340,7 @@ FUNCTION {format.date.electronic}
         { "(" swap$ * ", " * swap$ * ")" * }
       if$
     this.to.prev.status
-    punct.no 'this.status.punct :=
+    punct.period 'this.status.punct :=
     space.normal 'this.status.space :=
     quote.no 'this.status.quote :=
     cap.yes  'status.cap :=
@@ -1450,6 +1450,31 @@ FUNCTION {format.article.title.electronic}
   duplicate$ empty$ 
     { skip$ } 
     { select.language }
+  if$
+}
+
+FUNCTION {format.inbook.title.edition}
+{ booktitle "booktitle" bibinfo.check
+  duplicate$ empty$
+    { "empty booktitle in " cite$ * warning$ }
+    { this.to.prev.status
+      this.status.std
+      select.language
+      emphasize
+      edition empty$ 'skip$
+        { ", " *
+          edition
+          convert.edition
+          status.cap
+            { "t" }
+            { "l" }
+          if$
+          change.case$
+          * "~" * bbl.edition *
+        }
+      if$
+      cap.status.std
+    }
   if$
 }
 
@@ -2013,7 +2038,7 @@ FUNCTION {electronic}
   format.authors output
   name.or.dash
   format.date.electronic output
-  format.article.title.electronic output
+  format.article.title "title" output.warn
   format.howpublished "howpublished" bibinfo.check output
   format.organization "organization" bibinfo.check output
   format.address "address" bibinfo.check output
@@ -2033,7 +2058,12 @@ FUNCTION {inbook}
     { format.authors output.nonnull }
   if$
   name.or.dash
-  format.book.title.edition output
+  title empty$
+    { format.inbook.title.edition output }
+    { format.article.title "title" output.warn
+      format.in.booktitle "booktitle" output.warn
+    }
+  if$
   format.series output
   format.address.publisher.date output
   format.volume output

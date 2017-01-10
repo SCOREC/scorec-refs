@@ -385,6 +385,16 @@ static void remove_fields(Entries& entries, std::string const& name) {
   }
 }
 
+static void remove_type_fields(Entries& entries, std::string const& type, std::string const& name) {
+  for (auto& entry : entries) {
+    if (entry.type != type) continue;
+    for (auto it = begin(entry.fields); it != end(entry.fields);) {
+      if (it->name == name) entry.fields.erase(it);
+      else ++it;
+    }
+  }
+}
+
 static void rename_fields(Entries& entries, std::string const& from, std::string const& to) {
   for (auto& entry : entries) {
     for (auto& field : entry.fields) {
@@ -535,7 +545,8 @@ static StringSet get_abbrev_proc_names() {
     "J.",
     "Proc.",
     "Symp.",
-    "Trans."
+    "Trans.",
+    "Dept."
   };
   return s;
 }
@@ -601,17 +612,17 @@ static std::string unsplit_text(StringVector const& v) {
 }
 
 static void abbreviate(Entries& entries) {
-  StringSet text_fields;
-  text_fields.insert(std::string("booktitle"));
-  text_fields.insert(std::string("journal"));
-  text_fields.insert(std::string("organization"));
   auto abbrevs = get_abbreviations();
   auto procs = get_abbrev_proc_names();
   auto preps = get_prepositions();
   for (auto& entry : entries) {
-    auto is_string = entry.type == "string";
     for (auto& field : entry.fields) {
-      if (text_fields.count(field.name) || is_string) {
+      if (entry.type == "string" ||
+          field.name == "journal" ||
+          field.name == "organization" ||
+          field.name == "institution" ||
+          field.name == "school" ||
+          (field.name == "booktitle" && entry.type != "inbook")) {
         auto words = split_text(field.value);
         /* first abbreviate single words */
         for (auto& word : words) {
@@ -682,7 +693,7 @@ static void warn_missing_fields(Entries& entries) {
       warn_missing_field(entries, entry, "year");
       warn_missing_field(entries, entry, "month");
       warn_missing_field(entries, entry, "day");
-      warn_missing_field(entries, entry, "address");
+      warn_missing_field(entries, entry, "pages");
     } else if (entry.type == "article") {
       warn_missing_field(entries, entry, "title");
       warn_missing_field(entries, entry, "author");
@@ -696,6 +707,37 @@ static void warn_missing_fields(Entries& entries) {
       warn_missing_field(entries, entry, "author");
       warn_missing_field(entries, entry, "url");
       warn_missing_field(entries, entry, "urldate");
+    } else if (entry.type == "book") {
+      warn_missing_field(entries, entry, "title");
+      warn_missing_field(entries, entry, "author");
+      warn_missing_field(entries, entry, "publisher");
+      warn_missing_field(entries, entry, "address");
+      warn_missing_field(entries, entry, "year");
+    } else if (entry.type == "inbook") {
+      warn_missing_field(entries, entry, "booktitle");
+      warn_missing_field(entries, entry, "author");
+      warn_missing_field(entries, entry, "publisher");
+      warn_missing_field(entries, entry, "address");
+      warn_missing_field(entries, entry, "year");
+    } else if (entry.type == "techreport") {
+      warn_missing_field(entries, entry, "title");
+      warn_missing_field(entries, entry, "author");
+      warn_missing_field(entries, entry, "institution");
+      warn_missing_field(entries, entry, "address");
+      warn_missing_field(entries, entry, "number");
+      warn_missing_field(entries, entry, "year");
+    } else if (entry.type == "phdthesis") {
+      warn_missing_field(entries, entry, "title");
+      warn_missing_field(entries, entry, "author");
+      warn_missing_field(entries, entry, "school");
+      warn_missing_field(entries, entry, "address");
+      warn_missing_field(entries, entry, "year");
+    } else if (entry.type == "mastersthesis") {
+      warn_missing_field(entries, entry, "title");
+      warn_missing_field(entries, entry, "author");
+      warn_missing_field(entries, entry, "school");
+      warn_missing_field(entries, entry, "address");
+      warn_missing_field(entries, entry, "year");
     }
   }
 }
@@ -762,6 +804,80 @@ static void fix_months(Entries& entries) {
   }
 }
 
+static void remove_unwanted_fields(Entries& entries) {
+  remove_empty_fields(entries);
+  remove_fields(entries, "file");
+  remove_fields(entries, "abstract");
+  remove_fields(entries, "keywords");
+  remove_fields(entries, "note");
+  remove_type_fields(entries, "inproceedings", "organization");
+  remove_type_fields(entries, "inproceedings", "publisher");
+  remove_type_fields(entries, "inproceedings", "address");
+  remove_type_fields(entries, "inproceedings", "editor");
+  remove_type_fields(entries, "proceedings", "address");
+  remove_type_fields(entries, "proceedings", "title");
+  remove_type_fields(entries, "proceedings", "publisher");
+  remove_type_fields(entries, "techreport", "month");
+}
+
+static std::string unify_dashed_value(std::string const& value,
+    bool must_have_dash) {
+  enum { LEFT_SPACE, LEFT, DASH, RIGHT, RIGHT_SPACE } state = LEFT_SPACE;
+  std::string left_str;
+  std::string right_str;
+  for (size_t i = 0; i < value.length(); ++i) {
+    switch (state) {
+      case LEFT_SPACE:
+        if (!std::isspace(value[i])) {
+          left_str.push_back(value[i]);
+          state = LEFT;
+        }
+        break;
+      case LEFT:
+        if (value[i] == ' ' || value[i] == '-') state = DASH;
+        else left_str.push_back(value[i]);
+        break;
+      case DASH:
+        if (!(value[i] == ' ' || value[i] == '-')) {
+          right_str.push_back(value[i]);
+          state = RIGHT;
+        }
+        break;
+      case RIGHT:
+        if (std::isspace(value[i])) state = RIGHT_SPACE;
+        else right_str.push_back(value[i]);
+        break;
+      case RIGHT_SPACE:
+        if (!(std::isspace(value[i]))) {
+          std::cout << "too many spaces in dashed value \"" << value << "\"\n";
+          return value;
+        }
+        break;
+    };
+  }
+  if (!(state == RIGHT || state == RIGHT_SPACE)) {
+    if (must_have_dash) {
+      std::cout << "expected dash in value \"" << value << "\"\n";
+    }
+    return value;
+  }
+  return left_str + "-" + right_str;
+}
+
+static void unify_dashes(Entries& entries) {
+  for (auto& entry : entries) {
+    for (auto& field : entry.fields) {
+      if (field.name == "pages") {
+        field.value = unify_dashed_value(field.value, true);
+      }
+      if ((field.name == "number" && entry.type != "techreport") ||
+          (field.name == "day")) {
+        field.value = unify_dashed_value(field.value, false);
+      }
+    }
+  }
+}
+
 int main(int argc, char** argv) {
   bool inplace = false;
   const char* inpath = nullptr;
@@ -788,16 +904,12 @@ int main(int argc, char** argv) {
   }
   auto& entries = parser.get_entries();
   conference_to_inproceedings(entries);
-  remove_empty_fields(entries);
-  remove_fields(entries, "file");
-  remove_fields(entries, "abstract");
-  remove_fields(entries, "keywords");
-  remove_fields(entries, "note");
-  rename_fields(entries, "location", "address");
+  remove_unwanted_fields(entries);
   comment_out_urls(entries);
   abbreviate(entries);
   escape_ampersand(entries);
   fix_months(entries);
+  unify_dashes(entries);
   warn_missing_fields(entries);
   {
     std::ofstream file(outpath);
