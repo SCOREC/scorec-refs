@@ -260,6 +260,16 @@ url={http://arc.aiaa.org/doi/abs/10.2514/1.J053159}
   doi={10.2514/1.J053159}
 }
 
+@inproceedings{chitale2014anisotropic,
+  title={Anisotropic boundary layer adaptivity of multi-element wings},
+  author={Chitale, Kedar C and Rasquin, Michel and Sahni, Onkar and
+    Shephard, Mark S and Jansen, Kenneth E},
+  booktitle={52nd Aerospace Sciences Meeting (SciTech). AIAA Paper},
+  volume={117},
+  doi={10.2514/6.2014-0117},
+  year={2014}
+}
+
 @article{nielsen2002recent,
   title={Recent improvements in aerodynamic design optimization on unstructured meshes},
   author={Nielsen, Eric J and Anderson, W Kyle},
@@ -268,7 +278,8 @@ url={http://arc.aiaa.org/doi/abs/10.2514/1.J053159}
   number={6},
   pages={1155-1163},
   year={2002},
-  month=jun
+  month=jun,
+  doi={10.2514/2.1765}
 }
 
 url={http://doi.acm.org/10.1145/331532.331600}
@@ -375,6 +386,22 @@ url={http://www.sciencedirect.com/science/article/pii/0045782591901848}
   publisher={IEEE}
 }
 
+thermal creep
+@article{albanyThermalCreep,
+  author={Zhen Li and Max O. Bloomfield and Assad A. Oberai},
+  title={Simulation of finite-strain inelastic phenomena governed by creep and plasticity},
+  journal={Computational Mechanics},
+  volume={0},
+  number={01},
+  year={2017 submitted},
+  month=feb,
+  issn={},
+  pages={},
+  doi={},
+  publisher={Springer},
+  address={Berlin}
+}
+
 % Albany
 @misc{Albany2015,
   title={Albany Website},
@@ -443,6 +470,19 @@ url={http://www.sciencedirect.com/science/article/pii/0045782591901848}
   address={New York, NY, USA}
 }
 
+@article{WOLFHPC,
+  author        = "E. Seegyoung Seol and Cameron W. Smith and Daniel A. Ibanez and Mark S. Shephard",
+  title         = "A parallel unstructured mesh infrastructure",
+  journal       = "High Performance Computing, Networking, Storage and Analysis (SCC), 2012 SC Companion:",
+  volume        = "",
+  number        = "",
+  month         = "nov",
+  year          = "2012",
+  pages         = "1124--1132",
+  doi           = "10.1109/SC.Companion.2012.135",
+  note          = "",
+}
+
 url={http://dx.doi.org/10.1007/s00366-006-0039-5}
 @article{lawlor2006parallel,
   author={Lawlor, Orion S. and Chakravorty, Sayantan and Wilmarth, Terry L. and Choudhury, Nilesh and Dooley, Isaac and Zheng, Gengbin and Kal{\'e}, Laxmikant V.},
@@ -494,7 +534,7 @@ url={http://dx.doi.org/10.1007/s00366-006-0039-5}
 @electronic{aurorafacts,
   title={Aurora Fact Sheet},
   author={Intel},
-  url={http://www.intel.com/newsroom/assets/Intel_Aurora_factsheet.pdf},
+  howpublished={\url{http://www.intel.com/newsroom/assets/Intel\_Aurora\_factsheet.pdf}},
   urldate=oct # " 28, 2016",
   year={2015}
 }
@@ -1022,6 +1062,16 @@ url={http://www.ann.jussieu.fr/~hecht/ftp/bamg/bamg.pdf}
   pages={210-221}
 }
 
+mesh generation
+@inproceedings{tendulkar2011parallel,
+  title={Parallel mesh generation and adaptation for CAD geometries},
+  author={Tendulkar, Saurabh and Beall, Mark and Shephard, Mark S and
+    Jansen, KE},
+  booktitle={Proc. NAFEMS World Congress},
+  pages={2011--2},
+  year={2011}
+}
+
 @inproceedings{pandea2015gpu,
   title={{GPU}-Based Parallel Algorithms for Delaunay Mesh Refinement},
   author={Pande, Sushrut and Biswas, Supratim and De, Amitava},
@@ -1148,7 +1198,6 @@ graph algorithms
   author={Cormen, T.H. and Leiserson, C.E. and Rivest, R.L. and Stein, C.},
   isbn={9780262032933},
   lccn={00103127},
-  url={https://books.google.com/books?id=NLngYyWFl\_YC},
   year={2001},
   publisher={MIT Press}
 }
@@ -1486,6 +1535,15 @@ url={http://link.springer.com/article/10.1007/s007910050051}
   doi={10.1007/s007910050051}
 }
 
+finite elements and error estimation
+@book{hughes2012finite,
+  title={The finite element method: linear static and dynamic finite element analysis},
+  author={Hughes, Thomas JR},
+  year={2012},
+  isbn={978-0-4864-1181-1},
+  publisher={Courier Dover Publications}
+}
+
 url={http://www.sciencedirect.com/science/article/pii/S0045782504003202}
 @article{TeJaSUPG,
   author={Andr\'es E. Tejada-Mart\'{\i}nez and Kenneth E. Jansen},
@@ -1558,19 +1616,25 @@ ParMA
   title={Improving Unstructured Mesh Partitions for Multiple Criteria Using Mesh
     Adjacencies},
   journal={SIAM J. Scientific Comput.},
-  year={\noop{3002}under review},
+  year={2017 under review},
   author={Cameron W. Smith and Michel Rasquin and Dan Ibanez and Kenneth E. Jansen and Mark S. Shephard}
 }
 
-@article{phastaParma2015,
-  title={Partition Improvement to Accelerate Extreme Scale {CFD}},
-  journal={SIAM J. Scientific Comput.},
-  volume={in preparation},
-  year={2015},
-  author={Michel Rasquin and Cameron W. Smith and Dan Ibanez and Mark S. Shephard and Kenneth E. Jansen}
+url={http://link.springer.com/article/10.1007/s00366-016-0487-5}
+@article{bloomfield2016component,
+  title={Component-based workflows for parallel thermomechanical analysis of
+    arrayed geometries},
+  author={Bloomfield, Max O and Li, Zhen and Granzow, Brian and Ibanez,
+    Daniel A and Oberai, Assad A and Hansen, Glen A and Liu, Xiao Hu and
+      Shephard, Mark S},
+  journal={Engineering with Computers},
+  pages={1--9},
+  year={2016},
+  publisher={Springer},
+  issn={1435-5663},
+  doi={10.1007/s00366-016-0487-5}
 }
 
-this needs to be updated when the proceedings shows up
 url={http://dl.acm.org/citation.cfm?doid=2949550.2949650}
 @inproceedings{smith2016building,
   author={Cameron W. Smith and Kedar Chitale and Dan A. Ibanez and Brian Orecchio and E. Seegyoung Seol and Onkar Sahni and Kenneth E. Jansen and Mark S. Shephard},
@@ -2423,4 +2487,121 @@ url={https://www.osti.gov/scitech/biblio/936460-smart-libraries-best-sqe-practic
 @misc{mfem-library,
   title={{MFEM}: Modular finite element methods},
   howpublished={\url{mfem.org}}
+}
+
+exascale
+@misc{Cross10,
+  author = {Co-Design},
+  title = {Crosscutting Technologies for Computing at the Exascale, {D}raft
+	{R}eport, {DOE}, {J}une, 2010},
+  note = {http://extremecomputing.labworks.org/crosscut/report.stm}
+}
+
+@misc{Exa10,
+  author = {Roadmap},
+  title = {International Exascale Software Project Roadmap, {DOE ASCR}, January
+	2010},
+  note = {http://www.exascale.org/mediawiki/images/a/a1/Iesp-roadmap-draft-0.93-complete.pdf}
+}
+
+@article{shephard2013bringing,
+  title={{Bringing HPC to Engineering Innovation}},
+  author={Shephard, Mark S and Smith, Cameron and Kolb, John E},
+  journal={Computing in Science \& Engineering},
+  volume={15},
+  number={1},
+  pages={16--25},
+  year={2013},
+  publisher={AIP Publishing}
+}
+
+attributes
+@article {OBaBea,
+   AUTHOR = {R.M. {O'Bara} and M.W. Beall and M.S. Shephard},
+   TITLE = {Attribute Management System for Engineering Analysis},
+   JOURNAL = {Engineering with Computers},
+   YEAR = 2002,
+   VOLUME = 18,
+   PAGES = {339-351}
+}
+
+simulation based engineering
+@article {SheBea,
+   AUTHOR = {Mark S Shephard and M.W. Beall and R.M. {O'Bara} and B.E. Webster},
+   TITLE = {Toward simulation-based design},
+   JOURNAL = {Finite Elements in Analysis and Design},
+   YEAR = 2004,
+   VOLUME = 40,
+   NUMBER = 12,
+   PAGES = {1575-1598}
+}
+
+model adaptation
+@book{ramm2003error,
+  title={Error-controlled adaptive finite elements in solid mechanics},
+  author={Ramm, Ekkehard and Rank, E and Rannacher, R and Schweizerhof, K
+    and Stein, E and Wendland, W and Wittum, G and Wriggers, Peter and
+      Wunderlich, Walter},
+  year={2003},
+  isbn={978-0-471-49650-2},
+  publisher={John Wiley \& Sons}
+}
+
+geometric modeling data structures
+@article{weiler1988radial,
+  title={The radial edge structure: a topological representation for
+    non-manifold geometric boundary modeling},
+  author={Weiler, Kevin},
+  journal={Geometric modeling for CAD applications},
+  pages={3--36},
+  year={1988},
+  publisher={Elsevier Science Publishers, Amsterdam}
+}
+
+MPAS
+@manual{climateMesh,
+  author = "Climate, Ocean, Sea-Ice Modeling Team. Los Alamos National Laboratory",
+  title = "MPAS-Ocean Model User's Guide.  Version 2.0",
+  note = {\url{http://oceans11.lanl.gov/mpas_data/mpas_ocean/users_guide/release_2.0/mpas_ocean_users_guide_2.0.pdf}},
+  year = {2014}
+}
+
+finite difference
+@article{fornberg1988generation,
+  title={Generation of finite difference formulas on arbitrarily spaced
+    grids},
+  author={Fornberg, Bengt},
+  journal={Mathematics of computation},
+  volume={51},
+  number={184},
+  pages={699--706},
+  year={1988}
+}
+
+two-phase cfd
+@ARTICLE{Gal10,
+  author = {Azat Yu. Galimov and Onkar Sahni and Richard T. Lahey Jr. and Mark S.
+      Shephard and Donald A. Drew and Kenneth E. Jansen},
+  title = {Parallel Adaptive Simulation of a Plunging Liquid Jet},
+  journal = {Acta Mathematica Scientia},
+  year = {2010},
+  pages = {522-538},
+  volume = {30},
+  number = {2},
+  doi = {10.1016/S0252-9602(10)60060-4},
+}
+
+@article{Rod13,
+  author = {Joseph M. Rodriguez and Onkar Sahni and Richard T.
+    Lahey Jr. and Kenneth E. Jansen},
+  title = {A Parallel Adaptive Mesh Method for the Numerical Simulation of
+    Multiphase Flows},
+  journal = {Computers \& Fluids},
+  volume = {87},
+  number = {},
+  pages = {115 - 131},
+  year = {2013},
+  note = {\{USNCCM\} Moving Boundaries},
+  issn = {0045-7930},
+  doi = {10.1016/j.compfluid.2013.04.004}
 }
