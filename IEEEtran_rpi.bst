@@ -108,7 +108,7 @@ FUNCTION {default.num.names.shown.with.forced.et.al} { #1 }
 
 % #0 turns off the alternate interword spacing for entries with URLs.
 % #1 enables
-FUNCTION {default.is.use.alt.interword.spacing} { #1 }
+FUNCTION {default.is.use.alt.interword.spacing} { #0 }
 
 
 % If alternate interword spacing for entries with URLs is enabled, this is
