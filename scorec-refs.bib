@@ -432,22 +432,24 @@ thermal creep
 }
 
 PETSC https://www.mcs.anl.gov/petsc/documentation/referencing.html
-@Misc{petsc-web-page,
+@electronic{petsc-web-page,
   author = {Satish Balay and Shrirang Abhyankar and Mark~F. Adams and Jed Brown and Peter Brune
     and Kris Buschelman and Lisandro Dalcin and Victor Eijkhout and William~D. Gropp
       and Dinesh Kaushik and Matthew~G. Knepley
       and Lois Curfman McInnes and Karl Rupp and Barry~F. Smith
       and Stefano Zampini and Hong Zhang and Hong Zhang},
   title = {{PETS}c {W}eb page},
-  howpublished = {\url{http://www.mcs.anl.gov/petsc}},
+  url = {http://www.mcs.anl.gov/petsc},
+  urldate=mar # " 17, 2017",
   year = {2016}
 }
 
 % Albany
-@misc{Albany2015,
+@electronic{Albany2015,
   title={Albany Website},
   year={2015},
-  howpublished={\url{http://gahansen.github.io/Albany}}
+  url={http://gahansen.github.io/Albany},
+  urldate=mar # " 17, 2017"
 }
 
 @techreport{salinger2013albany,
@@ -462,7 +464,7 @@ PETSC https://www.mcs.anl.gov/petsc/documentation/referencing.html
 @misc{Trilinos2015,
   title={Trilinos Website},
   year={2015},
-  howpublished={\url{http://trilinos.org}}
+  url={\url{http://trilinos.org}}
 }
 
 @article{TrilinosOverview,
@@ -575,7 +577,7 @@ url={http://dx.doi.org/10.1007/s00366-006-0039-5}
 @electronic{aurorafacts,
   title={Aurora Fact Sheet},
   author={Intel},
-  howpublished={\url{http://www.intel.com/newsroom/assets/Intel\_Aurora\_factsheet.pdf}},
+  url={http://www.intel.com/newsroom/assets/Intel\_Aurora\_factsheet.pdf},
   urldate=oct # " 28, 2016",
   year={2015}
 }
@@ -1821,6 +1823,65 @@ begin web pages
   urldate=nov # " 6, 2016"
 }
 
+@electronic{itapsweb,
+  title={ITAPS Website},
+  year={2017},
+  month=mar,
+  url={http://itaps.org/},
+  urldate=mar # " 17, 2017"
+}
+
+@electronic{fastmathweb,
+  title={FASTMath Website},
+  url={https://fastmath-scidac.llnl.gov/},
+  urldate=mar # " 17, 2017"
+}
+
+@electronic{hpcnyWeb,
+  title={High Performance Computing Consortium (HPCNY) Website},
+  url={https://hpc-ny.org},
+  urldate=mar # " 17, 2017"
+}
+
+@electronic{zenodo,
+  title={Zenodo Website},
+  year={2017},
+  url={https://zenodo.org},
+  urldate=mar # " 17, 2017",
+}
+
+serialization frameworks
+@electronic{varda2015cap,
+  title={Cap'n Proto Website},
+  note={Sandstorm{.}io},
+  year={2016},
+  url={https://capnproto.org/},
+  urldate=mar # " 17, 2017",
+}
+
+@misc{flatbuffers,
+  title={FlatBuffers Website},
+  year={2016},
+  howpublished={\url{http://google.github.io/flatbuffers/index.html}}
+}
+
+@electronic{councilOnCompetitiveness,
+  author={Council on Competitiveness},
+  title={Reports},
+  year={2017},
+  url={http://www.compete.org/reports},
+  urldate=mar # " 17, 2017",
+}
+
+@electronic{whirlpool2009,
+  author={Council on Competitiveness},
+  title={Whirlpool’s Home Appliance Rocket Science: Design to Delivery with High
+    Performance Computing},
+  year={2009},
+  url={http://www.compete.org/storage/images/uploads/File/PDF\ Files/HPC_Whirlpool_032009.pdf},
+  urldate=mar # " 17, 2017"
+}
+
 end web pages
 undirected local partitioning
 @article{willebeek1993strategies,
@@ -2641,6 +2702,7 @@ exascale
   note = {http://www.exascale.org/mediawiki/images/a/a1/Iesp-roadmap-draft-0.93-complete.pdf}
 }
 
+
 @article{shephard2013bringing,
   title={{Bringing HPC to Engineering Innovation}},
   author={Shephard, Mark S and Smith, Cameron and Kolb, John E},
@@ -2698,8 +2760,9 @@ geometric modeling data structures
 
 MPAS
 @manual{climateMesh,
-  author = "Climate, Ocean, Sea-Ice Modeling Team. Los Alamos National Laboratory",
-  title = "MPAS-Ocean Model User's Guide.  Version 2.0",
+  author = {Doug Jacobsen and Mark Petersen and Todd Ringler and Michael Duda},
+  organization = {Climate, Ocean, Sea-Ice Modeling Team. Los Alamos National Laboratory},
+  title = {MPAS-Ocean Model User's Guide.  Version 2.0},
   note = {\url{http://oceans11.lanl.gov/mpas_data/mpas_ocean/users_guide/release_2.0/mpas_ocean_users_guide_2.0.pdf}},
   year = {2014}
 }
@@ -2744,26 +2807,6 @@ two-phase cfd
   doi = {10.1016/j.compfluid.2013.04.004}
 }
 
-@misc{zenodo,
-  title={Zenodo Website},
-  year={2017},
-  howpublished={\url{https://zenodo.org}}
-}
-
-serialization frameworks
-@misc{varda2015cap,
-  title={Cap’n Proto Website},
-  note={Sandstorm{.}io},
-  year={2016},
-  howpublished={\url{https://capnproto.org/}}
-}
-
-@misc{flatbuffers,
-  title={FlatBuffers Website},
-  year={2016},
-  howpublished={\url{http://google.github.io/flatbuffers/index.html}}
-}
-
 curved meshing
 url={https://link.springer.com/article/10.1007/s00366-004-0295-1/fulltext.html}
 @article{LuoShephard_04,
@@ -2806,42 +2849,6 @@ url={http://imr.sandia.gov/papers/imr11.html}
   year={2002}
 }
 
-@misc{councilOnCompetitiveness,
-  author={Council on Competitiveness},
-  title={Reports},
-  year={2017},
-  howpublished={\url{http://www.compete.org/reports}}
-}
-
-@techreport{whirlpool2009,
-  author={Council on Competitiveness},
-  title={Whirlpool’s Home Appliance Rocket Science: Design to Delivery with High
-    Performance Computing},
-  institution={Council on Competitiveness: High Performance Computing Case Study},
-  year={2009}
-}
-
-DOE scidac projects
-@misc{itapsweb,
-  title={ITAPS Website},
-  year={2017},
-  month=mar,
-  howpublished={\url{http://itaps.org/}}
-}
-
-@misc{fastmathweb,
-  title={FASTMath Website},
-  year={2017},
-  month=mar,
-  howpublished={\url{https://fastmath-scidac.llnl.gov/}}
-}
-
-@misc{hpcnyWeb,
-  title={High Performance Computing Consortium (HPCNY) Website},
-  year={2017},
-  month=mar,
-  howpublished={\url{https://hpc-ny.org}},
-}
 
 url = {http://www.sciencedirect.com/science/article/pii/S0045782510000204}
 @article{amsiDelalondre2010,
