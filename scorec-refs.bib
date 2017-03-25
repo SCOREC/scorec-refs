@@ -227,31 +227,17 @@ url={http://scitation.aip.org/content/aip/journal/cise/16/6/10.1109/MCSE.2014.75
 
 url = {http://doi.acm.org/10.1145/2148600.2148653},
 @inproceedings{RasquinSC11Poster,
-  Acmid = {2148653},
-  Address = {New York, NY, USA},
   Author = {Rasquin, Michel and Marion, Patrick and Vishwanath,
     Venkatram and Matthews, Benjamin and Hereld, Mark and Jansen,
     Kenneth and Loy, Raymond and Bauer, Andrew and Zhou, Min and
       Sahni, Onkar and Fu, Jing and Liu, Ning and Carothers,
     Christopher and Shephard, Mark and Papka, Michael and Kumaran,
     Kalyan and Geveci, Berk},
-  Booktitle = {Proceedings of the 2011 Companion on High
-    Performance Computing Networking, Storage and Analysis
-      Companion},
-  Doi = {10.1145/2148600.2148653},
-  Isbn = {978-1-4503-1030-7},
-  Location = {Seattle, Washington, USA},
-  Numpages = {2},
+  Title = {Electronic Poster: Co-visualization of Full Data and
+    in Situ Data Extracts from Unstructured Grid Cfd at 160K Cores},
   Pages = {103--104},
-  Publisher = {ACM},
-  Series = {SC '11 Companion},
-  Title = {Electronic
-    Poster: Co-visualization
-      of Full Data and in
-      Situ Data Extracts
-      from Unstructured Grid
-      Cfd at 160K Cores},
-  Year = {2011},
+  Doi = {10.1145/2148600.2148653},
+  crossref={sc11}
 }
 
 url={http://dx.doi.org/10.1002/1097-0363(20010115)35:1<93::AID-FLD85>3.0.CO;2-G}
@@ -289,6 +275,7 @@ url={http://arc.aiaa.org/doi/abs/10.2514/1.J053159}
   doi={10.2514/1.J053159}
 }
 
+url={https://arc.aiaa.org/doi/abs/10.2514/6.2014-0117}
 @inproceedings{chitale2014anisotropic,
   title={Anisotropic boundary layer adaptivity of multi-element wings},
   author={Chitale, Kedar C and Rasquin, Michel and Sahni, Onkar and
@@ -296,7 +283,10 @@ url={http://arc.aiaa.org/doi/abs/10.2514/1.J053159}
   booktitle={52nd Aerospace Sciences Meeting (SciTech). AIAA Paper},
   volume={117},
   doi={10.2514/6.2014-0117},
-  year={2014}
+  year={2014},
+  month=jan,
+  day={13-17},
+  pages={1--14}
 }
 
 @article{nielsen2002recent,
@@ -315,15 +305,12 @@ url={http://doi.acm.org/10.1145/331532.331600}
 @inproceedings{anderson1999achieving,
   author={Anderson, W. K. and Gropp, W. D. and Kaushik, D. K. and Keyes, D. E. and Smith, B. F.},
   title={Achieving High Sustained Performance in an Unstructured Mesh {CFD} Application},
-  booktitle={Proc. 1999 ACM/IEEE Conf. Supercomputing},
-  series={SC '99},
-  year={1999},
-  month=nov,
-  day={14-19},
   isbn={1-58113-091-0},
+  pages={1--13},
   articleno={69},
   doi={10.1145/331532.331600},
-  acmid={331600}
+  acmid={331600},
+  crossref={sc99}
 }
 
 @inproceedings{compression-cr-2012,
@@ -348,20 +335,15 @@ filesystems
 url=http://dl.acm.org/citation.cfm?id=1083323.1083349
 @inproceedings{gpfs_2002,
   author = {Schmuck, Frank and Haskin, Roger},
-  title = {GPFS: A Shared-Disk File System for Large Computing Clusters},
-  booktitle = {Proceedings of the 1st USENIX Conference on File and Storage
-    Technologies},
-  series = {FAST '02},
-  year = {2002},
-  location = {Monterey, CA},
+  title = {{GPFS}: A Shared-Disk File System for Large Computing Clusters},
   articleno = {19},
-  acmid = {1083349},
-  publisher = {USENIX Association},
-  address = {Berkeley, CA, USA},
+  pages={1--15},
+  crossref={fast02}
 }
 
 creation date from lustre.org.ipaddress.com
 @electronic{lustre_web,
+  author={{OpenSFS} and {EOFS}},
   title={Lustre website},
   url={http://lustre.org/},
   urldate=mar # " 20, 2017",
@@ -377,7 +359,9 @@ url={http://www.osti.gov/scitech/servlets/purl/951297},
     Sciences},
   DOI={10.2172/951297},
   year={2009},
-  month={Apr}
+  month=apr,
+  number={951297},
+  address={Oak Ridge, TN}
 }
 
 url={http://doi.acm.org/10.1145/2600212.2600224}
@@ -460,9 +444,7 @@ thermal creep
   number={01},
   year={2017 submitted},
   month=feb,
-  issn={},
-  pages={},
-  doi={},
+  pages={1--27},
   publisher={Springer},
   address={Berlin}
 }
@@ -483,6 +465,7 @@ PETSC https://www.mcs.anl.gov/petsc/documentation/referencing.html
 % Albany
 @electronic{Albany2015,
   title={Albany Website},
+  author={Glen Hansen},
   year={2015},
   url={http://gahansen.github.io/Albany},
   urldate=mar # " 17, 2017"
@@ -549,17 +532,12 @@ PETSC https://www.mcs.anl.gov/petsc/documentation/referencing.html
   address={New York, NY, USA}
 }
 
-@article{WOLFHPC,
-  author        = "E. Seegyoung Seol and Cameron W. Smith and Daniel A. Ibanez and Mark S. Shephard",
-  title         = "A parallel unstructured mesh infrastructure",
-  journal       = "High Performance Computing, Networking, Storage and Analysis (SCC), 2012 SC Companion:",
-  volume        = "",
-  number        = "",
-  month         = "nov",
-  year          = "2012",
-  pages         = "1124--1132",
-  doi           = "10.1109/SC.Companion.2012.135",
-  note          = "",
+@inproceedings{WOLFHPC,
+  author = {E. Seegyoung Seol and Cameron W. Smith and Daniel A. Ibanez and Mark S. Shephard},
+  title = {A parallel unstructured mesh infrastructure},
+  pages = {1124--1132},
+  doi = {10.1109/SC.Companion.2012.135},
+  crossref={sc12}
 }
 
 url={http://dx.doi.org/10.1007/s00366-006-0039-5}
@@ -637,7 +615,8 @@ url={http://dx.doi.org/10.1007/s00366-006-0039-5}
     Landing Edition},
   author={Jeffers, James and Reinders, James and Sodani, Avinash},
   year={2016},
-  publisher={Morgan Kaufmann}
+  publisher={Morgan Kaufmann},
+  address={Boston,MA}
 }
 
 @article{haring2012ibm,
@@ -691,17 +670,21 @@ url={http://dl.acm.org/citation.cfm?id=1413370.1413394}
   day={16}
 }
 
+url={http://onlinelibrary.wiley.com/doi/10.1111/cgf.12930/abstract}
 @article{insituViz2016,
+  Title = {In Situ Methods, Infrastructures, and Applications on High
+    Performance Computing Platforms.},
   Author = {Bauer, A. C. and Abbasi, H. and Ahrens, J. and Childs, H. and
     Geveci, B. and Klasky, S. and Moreland, K. and O'Leary, P. and Vishwanath,
     V. and Whitlock, B. and Bethel, E. W.},
   ISSN = {0167-7055},
   Journal = {Computer Graphics Forum},
+  volume = {35},
   Number = {3},
-  Pages = {577},
-  Title = {In Situ Methods, Infrastructures, and Applications on High
-    Performance Computing Platforms.},
+  Pages = {577--597},
+  doi = {10.1111/cgf.12930},
   Year = {2016},
+  month = jun,
 }
 
 @inproceedings{zhang2012enabling,
@@ -757,19 +740,9 @@ url = {http://doi.acm.org/10.1145/2063384.2063409},
     Papka, Michael E.},
   title = {Topology-aware Data Movement and Staging for I/O Acceleration on
     Blue Gene/P Supercomputing Systems},
-  booktitle = {Proceedings of 2011 International Conference for High
-    Performance Computing, Networking, Storage and Analysis},
-  series = {SC '11},
-  year = {2011},
-  isbn = {978-1-4503-0771-0},
-  location = {Seattle, Washington},
   pages = {19:1--19:11},
-  articleno = {19},
-  numpages = {11},
   doi = {10.1145/2063384.2063409},
-  acmid = {2063409},
-  publisher = {ACM},
-  address = {New York, NY, USA},
+  crossref={sc11}
 }
 
 @article{freitag1997tetrahedral,
@@ -815,11 +788,11 @@ url = {http://doi.acm.org/10.1145/2063384.2063409},
 @inproceedings{dompierre1999subdivide,
   title={How to Subdivide Pyramids, Prisms, and Hexahedra into Tetrahedra.},
   author={Dompierre, Julien and Labb{\'e}, Paul and Vallet, Marie-Gabrielle and Camarero, Ricardo},
-  booktitle={IMR},
   pages={195-204},
-  year={1999}
+  crossref={imr8}
 }
 
+url={http://onlinelibrary.wiley.com/doi/10.1002/nme.772/abstract}
 @article{li2003accounting,
   title={Accounting for curved domains in mesh adaptation},
   author={Li, Xiangrong and Shephard, Mark S and Beall, Mark W},
@@ -828,6 +801,7 @@ url = {http://doi.acm.org/10.1145/2063384.2063409},
   number={2},
   pages={247-276},
   year={2003},
+  month=jul,
   publisher={Wiley Online Library}
 }
 
@@ -973,12 +947,12 @@ url={http://link.springer.com/chapter/10.1007/978-3-642-33573-0\_26}
 @inproceedings{ovcharenko2013parallel,
   author={Aleksandr Ovcharenko and Kedar C. Chitale and Onkar Sahni and Kenneth E. Jansen and Mark S. Shephard},
   title={Parallel adaptive boundary layer meshing for {CFD} analysis},
-  booktitle={Proc. 21st Int. Meshing Roundtable},
-  year={2013},
+  doi={10.1007/978-3-642-33573-0\_26},
   pages={437-455},
-  doi={10.1007/978-3-642-33573-0\_26}
+  crossref={imr21}
 }
 
+url={https://link.springer.com/article/10.1007/s00366-013-0329-7}
 @article{lu2014parallel,
   title={Parallel mesh adaptation for high-order finite element methods with curved element geometry},
   author={Lu, Qiukai and Shephard, Mark S and Tendulkar, Saurabh and Beall, Mark W},
@@ -987,16 +961,21 @@ url={http://link.springer.com/chapter/10.1007/978-3-642-33573-0\_26}
   number={2},
   pages={271-286},
   year={2014},
+  month=sep,
   publisher={Springer}
 }
 
+url={http://www.sciencedirect.com/science/article/pii/S1877705814016646}
+this journal does not have issue numbers - I list it as '1'...
 @article{barral2014two,
   title={Two mesh deformation methods coupled with a changing-connectivity moving mesh method for {CFD} applications},
   author={Barral, Nicolas and Luke, Edward and Alauzet, Fr{\'e}d{\'e}ric},
   journal={Procedia Eng.},
   volume={82},
-  pages={213-227},
+  number={1},
+  pages={213--227},
   year={2014},
+  month=oct,
   publisher={Elsevier}
 }
 
@@ -1041,6 +1020,7 @@ url={http://dx.doi.org/10.1002/(SICI)1097-0207(19970515)40:9<1573::AID-NME128>3.
 }
 
 @electronic{simmetrix_web,
+  author={Simmetrix Inc.},
   title={Simmetrix: Enabling Simulation-Based Design},
   url={http://www.simmetrix.com/},
   urldate=mar # " 23, 2017",
@@ -1054,12 +1034,24 @@ url={http://dx.doi.org/10.1002/(SICI)1097-0207(19970515)40:9<1573::AID-NME128>3.
   year={2017}
 }
 
-@inproceedings{boissonnat2000triangulations,
-  title={Triangulations in CGAL},
-  author={Boissonnat, Jean-Daniel and Devillers, Olivier and Teillaud, Monique and Yvinec, Mariette},
-  booktitle={Proc. sixteenth Annu. Symp. Computational geometry},
-  pages={11-18},
-  year={2000}
+url={http://dl.acm.org/citation.cfm?id=2295327&CFID=740155208&CFTOKEN=68730949}
+@article{boissonnat2000triangulations,
+  title = {Triangulations in {CGAL}},
+  author = {Boissonnat, Jean-Daniel and Devillers, Olivier and Pion, Sylvain
+    and Teillaud, Monique and Yvinec, Mariette},
+  journal = {Comput. Geom. Theory Appl.},
+  issue_date = {May, 2002},
+  volume = {22},
+  number = {1-3},
+  month = may,
+  year = {2002},
+  issn = {0925-7721},
+  pages = {5--19},
+  numpages = {15},
+  doi = {10.1016/S0925-7721(01)00054-2},
+  acmid = {2295327},
+  publisher = {Elsevier Science Publishers B. V.},
+  address = {Amsterdam, The Netherlands, The Netherlands},
 }
 
 url={http://dx.doi.org/10.1002/nme.509}
@@ -1077,6 +1069,7 @@ url={http://dx.doi.org/10.1002/nme.509}
   month=jul
 }
 
+url={http://www.worldscientific.com/doi/abs/10.1142/S0218195905001580}
 @article{blandford2005compact,
   title={Compact representations of simplicial meshes in two and three dimensions},
   author={Blandford, Daniel K and Blelloch, Guy E and Cardoze, David E and Kadow, Clemens},
@@ -1085,6 +1078,7 @@ url={http://dx.doi.org/10.1002/nme.509}
   number={01},
   pages={3-24},
   year={2005},
+  month=feb,
   publisher={World Scientific}
 }
 
@@ -1111,6 +1105,7 @@ url={http://dx.doi.org/10.1002/nme.1440}
   number={4},
   pages={348-359},
   year={2005},
+  month=dec,
   publisher={American Society of Mechanical Engineers}
 }
 
@@ -1153,6 +1148,7 @@ url={http://dx.doi.org/10.1007/s00366-014-0378-6}
   title={An Interoperable, Data-Structure-Neutral Component for Mesh Query and Manipulation},
   journal={Trans. Math. Software},
   year={2010},
+  month=sep,
   volume={37},
   pages={29:1-29:28},
   number={3}
@@ -1171,19 +1167,22 @@ url={http://dx.doi.org/10.1007/s00366-014-0378-6}
 }
 
 url={http://www.ann.jussieu.fr/~hecht/ftp/bamg/bamg.pdf}
-@article{hecht1998bamg,
-  title={BAMG: bidimensional anisotropic mesh generator},
+@manual{hecht1998bamg,
+  title={{BAMG}: bidimensional anisotropic mesh generator},
   author={Hecht, Fr{\'e}d{\'e}ric},
-  type={INRIA report},
+  organization={INRIA},
   year={1998}
 }
 
+url={https://link.springer.com/article/10.1007/s00366-004-0289-z}
 @article{BeaWal,
   author={M. W. Beall and J. Walsh and M. S. Shephard},
   title={A comparison of techniques for geometry access related to mesh generation},
   journal={Eng. with Comput.},
   year={2004},
+  month=aug,
   volume={20},
+  number={3},
   pages={210-221}
 }
 
@@ -1199,9 +1198,8 @@ mesh generation
   title={Parallel mesh generation and adaptation for CAD geometries},
   author={Tendulkar, Saurabh and Beall, Mark and Shephard, Mark S and
     Jansen, KE},
-  booktitle={Proc. NAFEMS World Congress},
-  pages={2011--2},
-  year={2011}
+  pages={1--12},
+  crossref={nafemsWC11},
 }
 
 @inproceedings{pandea2015gpu,
@@ -1239,12 +1237,11 @@ url={http://doi.acm.org/10.1145/1365490.1365500}
   year=2016
 }
 
-@article{shewchuk2002good,
-  title={What is a good linear finite element? interpolation, conditioning, anisotropy, and quality measures (preprint)},
-  author={Shewchuk, J},
-  journal={Univ. of California at Berkeley},
-  volume={73},
-  year={2002}
+@inproceedings{shewchuk2002good,
+  title={What is a good linear finite element? interpolation, conditioning, anisotropy, and quality measures},
+  author={Shewchuk, Jonathan R.},
+  pages={1--12},
+  crossref={imr11}
 }
 
 @inproceedings{klingner2008aggressive,
@@ -1275,14 +1272,17 @@ url={http://dx.doi.org/10.1007/3-540-57981-8_126}
   number={1},
   pages={47-56},
   year={2004},
+  month=jan,
   publisher={ACM}
 }
 
 url={http://www.sciencedirect.com/science/article/pii/S0167819116000041}
+this journal does not have issue numbers, set it to 1
 @article{ibanez2016hybrid,
   title={Hybrid {MPI}-thread parallelization of adaptive mesh operations},
   journal={Parallel Comput.},
   volume={52},
+  number={1},
   pages={133-143},
   year={2016},
   month=jan,
@@ -1329,22 +1329,25 @@ partitioning - other
   number={2},
   pages={485-500},
   year={2000},
+  month=apr,
   publisher={Elsevier}
 }
 
 graph algorithms
+url={http://dl.acm.org/citation.cfm?id=500824}
 @book{cormen2001introduction,
   title={Introduction To Algorithms},
   author={Cormen, T.H. and Leiserson, C.E. and Rivest, R.L. and Stein, C.},
   isbn={9780262032933},
   lccn={00103127},
   year={2001},
-  publisher={MIT Press}
+  publisher={MIT Press},
+  address={Cambridge, MA}
 }
 
 graph partitioning
 @electronic{ZoltanHome,
-  author={E. Boman and K. Devine and L.A. Fisk and R. Heaphy and B. Hendrickson and V. Leung and C. Vaughan and U. Catalyurek and D. Bozdag and and W. Mitchell},
+  author={E. Boman and K. Devine and L.A. Fisk and R. Heaphy and B. Hendrickson and V. Leung and C. Vaughan and U. \c{C}ataly{\"u}rek and D. Bozdag and and W. Mitchell},
   title={Zoltan home page},
   year={2011},
   url={http://www.cs.sandia.gov/zoltan/},
@@ -1362,12 +1365,6 @@ graph partitioning
   doi={10.1109/5992.988653},
   issn={1521-9615},
   month=mar
-}
-
-@article{parmetis4,
-  author={G. Karypis and K. Schloegel},
-  title={{Parallel Graph Partitioning and Sparse Matrix Ordering Library, Version 4.0}},
-  year={2015}
 }
 
 the METIS library
@@ -1388,11 +1385,13 @@ url={ http://dx.doi.org/10.1137/S1064827595287997}
 @inproceedings{karypis1998multilevel,
   title={Multilevel algorithms for multi-constraint graph partitioning},
   author={Karypis, George and Kumar, Vipin},
-  booktitle={Proc. 1998 ACM/IEEE Conf. Supercomputing (CDROM)},
   pages={1-13},
-  year={1998}
+  crossref={sc98}
 }
 
+url={http://epubs.siam.org/doi/10.1137/S0036144598334138}
+the month was hard to find - JSTOR had it
+http://www.jstor.org/stable/i325469
 @article{karypis1999parallel,
   title={Parallel multilevel series k-way partitioning scheme for irregular graphs},
   author={Karypis, George and Kumar, Vipin},
@@ -1401,20 +1400,24 @@ url={ http://dx.doi.org/10.1137/S1064827595287997}
   number={2},
   pages={278-300},
   year={1999},
+  month=jun,
   publisher={SIAM}
 }
 
+url={http://www.sciencedirect.com/science/article/pii/S0743731597914106}
 @article{schloegel1997multilevel,
-  title={Multilevel doiffusion schemes for repartitioning of adaptive meshes},
+  title={Multilevel diffusion schemes for repartitioning of adaptive meshes},
   author={Schloegel, Kirk and Karypis, George and Kumar, Vipin},
   journal={J. Parallel and Distributed Comput.},
   volume={47},
   number={2},
   pages={109-124},
   year={1997},
+  month=dec,
   publisher={Elsevier}
 }
 
+url={http://onlinelibrary.wiley.com/doi/10.1002/cpe.605/abstract}
 @article{schloegel2002parallel,
   title={Parallel static and dynamic multi-constraint graph partitioning},
   author={Schloegel, Kirk and Karypis, George and Kumar, Vipin},
@@ -1423,6 +1426,7 @@ url={ http://dx.doi.org/10.1137/S1064827595287997}
   number={3},
   pages={219-240},
   year={2002},
+  month=mar,
   publisher={Wiley Online Library}
 }
 
@@ -1431,40 +1435,48 @@ url={ http://dx.doi.org/10.1137/S1064827595287997}
   author={LaSalle, Dominique and Karypis, George},
   booktitle={Parallel \& Distributed Process. (IPDPS), 2013 IEEE 27th Int. Symp.},
   pages={225-236},
-  year={2013}
+  year={2013},
+  month=may,
+  day={20-24}
 }
 
 hypergraph partitioning
 @inproceedings{devine2006parallel,
   title={Parallel hypergraph partitioning for scientific computing},
-  author={Devine, Karen D and Boman, Erik G and Heaphy, Robert T and Bisseling, Rob H and Catalyurek, Umit V},
+  author={Devine, Karen D and Boman, Erik G and Heaphy, Robert T and Bisseling, Rob H and \c{C}ataly{\"u}rek, Umit V},
   booktitle={Parallel and Distributed Process. Symp., 2006. IPDPS 2006. 20th Int.},
   pages={10-pp},
-  year={2006}
+  year={2006},
+  month=apr,
+  day={25-29}
 }
 
 @article{catalyurek2009repartitioning,
   title={A repartitioning hypergraph model for dynamic load balancing},
-  author={Catalyurek, Umit V and Boman, Erik G and Devine, Karen D and Bozda{\u{g}}, Doruk and Heaphy, Robert T and Riesen, Lee Ann},
+  author={\c{C}ataly{\"u}rek, Umit V and Boman, Erik G and Devine, Karen D and Bozda{\u{g}}, Doruk and Heaphy, Robert T and Riesen, Lee Ann},
   journal={J. Parallel and Distributed Comput.},
   volume={69},
   number={8},
   pages={711-724},
   year={2009},
+  month=aug,
   publisher={Elsevier}
 }
 
+url={http://dl.acm.org/citation.cfm?id=311798}
 @article{catalyurek1999hypergraph,
   title={Hypergraph-partitioning-based decomposition for parallel sparse-matrix vector multiplication},
-  author={Catalyurek, Umit V and Aykanat, Cevdet},
+  author={\c{C}ataly{\"u}rek, Umit V and Aykanat, Cevdet},
   journal={Parallel and Distributed Syst., IEEE Trans.},
   volume={10},
   number={7},
   pages={673-693},
   year={1999},
+  month=jul,
   publisher={IEEE}
 }
 
+url={http://www.sciencedirect.com/science/article/pii/S0743731507001724?}
 @article{aykanat2008multi,
   title={Multi-level direct k-way hypergraph partitioning with multiple constraints and fixed vertices},
   author={Aykanat, Cevdet and Cambazoglu, B Barla and U{\c{c}}ar, Bora},
@@ -1473,28 +1485,37 @@ hypergraph partitioning
   number={5},
   pages={609-625},
   year={2008},
+  month=may,
   publisher={Elsevier}
 }
 
+url={http://dx.doi.org/10.1090/conm/588}
+another journal without numbers...
 @article{catalyurek2013umpa,
-  title={UMPa: A multiobjective, multi-level partitioner for communication minimization},
-  author={Cataly{\"u}rek, UV and Deveci, Mehmet and Kaya, Kamer and U{\c{c}}ar, Bora},
+  title={{UMPa}: A multiobjective, multi-level partitioner for communication minimization},
+  author={\c{C}ataly{\"u}rek, UV and Deveci, Mehmet and Kaya, Kamer and U{\c{c}}ar, Bora},
   journal={Contemporary Math.},
   volume={588},
+  number={1},
   year={2013},
-  publisher={Citeseer}
+  month=feb,
+  pages={53--64}
 }
 
 - this demonstrates multi-criteria balancing for multi-physics using
 parmetis, Zoltan RIB, and some other methods
+url={http://www.civil-comp.com/conf/ect2012.htm}
 @inproceedings{chevalier2012load,
   title={Load Balancing for Mesh Based Multi-Physics Simulations in the Arcane Framework},
   author={Chevalier, C and Grospellier, G and Ledoux, F and Weill, JC and Arpajon, France},
   booktitle={Proc. 8th Int. Conf. Eng. Computational Technol.},
   pages={47-62},
-  year={2012}
+  year={2012},
+  month=sep,
+  day={4-7}
 }
 
+url={https://www.hindawi.com/journals/vlsi/2000/019436/abs/}
 @article{karypis2000multilevel,
   title={Multilevel k-way hypergraph partitioning},
   author={Karypis, George and Kumar, Vipin},
@@ -1503,18 +1524,20 @@ parmetis, Zoltan RIB, and some other methods
   number={3},
   pages={285-300},
   year={2000},
+  month=mar,
   publisher={Hindawi Publishing Corporation}
 }
 
 geometric
 @article{devineMultiJagged2015,
-  author={Deveci, M. and Rajamanickam, S. and Devine, K. and Catalyurek, U.},
+  author={Deveci, M. and Rajamanickam, S. and Devine, K. and \c{C}ataly{\"u}rek, U.},
   journal={Parallel and Distributed Syst., IEEE Trans.},
   title={Multi-Jagged: A Scalable Parallel Spatial Partitioning Algorithm},
   year={2015},
-  volume={PP},
-  number={99},
-  pages={1-1},
+  month=mar,
+  volume={27},
+  number={3},
+  pages={803--817}
   doi={10.1109/TPDS.2015.2412545},
   issn={1045-9219}
 }
@@ -1527,17 +1550,21 @@ url={http://www.sciencedirect.com/science/article/pii/S0743731512001311}
   number={10},
   pages={1201-1214},
   year={2012},
+  month=oct,
   issn={0743-7315},
   doi={http://dx.doi.org/10.1016/j.jpdc.2012.05.013},
-  author={Erik Saule and Erdeniz {\"{O}}. Ba{\c{s}} and {\"{U}}mit V. Cataly{\"{u}}rek}
+  author={Erik Saule and Erdeniz {\"{O}}. Ba{\c{s}} and {\"{U}}mit V. \c{C}ataly{\"{u}}rek}
 }
 
-url={http://libproxy.rpi.edu/login?url=http://search.ebscohost.com/login.aspx?direct=true&db=edsecd&AN=edsecd.1062842&site=eds-live&scope=site}
-@article{zoltan2,
-  author={Boman, Erik G. and Devine, Karen D. and Leung, Vitus J. and Rajamanickam, Sivasankaran and Riesen, Lee Ann and Mehmet, Deveci and Umit, Catalyurek},
+url={https://www.osti.gov/scitech/biblio/1062842}
+@techreport{zoltan2,
+  author={Boman, Erik G. and Devine, Karen D. and Leung, Vitus J. and Rajamanickam, Sivasankaran and Riesen, Lee Ann and Mehmet, Deveci and Umit, \c{C}ataly{\"u}rek},
   title={Zoltan2: Next-Generation Combinatorial Toolkit.},
   journal={Trilinos Users Group Meeting},
-  year={2012}
+  year={2012},
+  institution={Sandia National Laboratories},
+  address={Albuquerque, NM},
+  number={SAND2012-9373C}
 }
 
 @techreport{edwards2010sierra,
@@ -1559,6 +1586,7 @@ url={http://libproxy.rpi.edu/login?url=http://search.ebscohost.com/login.aspx?di
 }
 
 @electronic{moab_bitbucket,
+  author={Vijay Mahadevan},
   title={MOAB: Mesh-Oriented datABase},
   url={https://bitbucket.org/fathomteam/moab},
   urldate=mar # " 19, 2017",
@@ -1584,15 +1612,19 @@ url={http://dx.doi.org/10.1002/cpe.4330030502}
   address={Chichester, UK}
 }
 
+url={http://onlinelibrary.wiley.com/doi/10.1002/nme.1620372205/full}
 @article{TaylorRIB,
   author={Valerie Taylor and Bahram Nour-omid},
   title={A Study of the Factorization Fill-In for a Parallel Implementation of the Finite Element Method},
   journal={Int. J. Numer. Meth. Engng},
   year={1994},
   volume={37},
+  number={22},
+  month=nov,
   pages={3809-3823}
 }
 
+url={http://ieeexplore.ieee.org/document/1676942/?arnumber=1676942&SID=EBSCO:edseee}
 @article{bergerRib1987,
   title={A partitioning strategy for nonuniform problems on multiprocessors},
   author={Berger, Marsha J and Bokhari, Shahid H},
@@ -1601,6 +1633,7 @@ url={http://dx.doi.org/10.1002/cpe.4330030502}
   number={5},
   pages={570-580},
   year={1987},
+  month=may,
   publisher={IEEE}
 }
 
@@ -1616,10 +1649,13 @@ url={http://dx.doi.org/10.1002/(SICI)1096-9128(199805)10:6<467::AID-CPE325>3.0.C
   issn={1096-9128},
   doi={10.1002/(SICI)1096-9128(199805)10:6<467::AID-CPE325>3.0.CO;2-A},
   pages={467-483},
-  year={1998}
+  year={1998},
+  month=may
 }
 
 partitioning overview
+url={http://dl.acm.org/citation.cfm?id=941480}
+no author is listed...
 @book{DongarraSourcebookParComp,
   editor={Dongarra, Jack and Foster, Ian and Fox, Geoffrey and Gropp, William and Kennedy, Ken and Torczon, Linda and White, Andy},
   title={Sourcebook of Parallel Computing},
@@ -1637,6 +1673,7 @@ url={http://www.sciencedirect.com/science/article/pii/S0045793014003016}
   number={0},
   pages={1-5},
   year={2014},
+  month=nov,
   issn={0045-7930},
   doi={http://dx.doi.org/10.1016/j.compfluid.2014.07.016},
   author={Zhi Shang}
@@ -1683,13 +1720,15 @@ url={http://link.springer.com/article/10.1007/s007910050051}
   doi={10.1007/s007910050051}
 }
 
+url={http://libproxy.rpi.edu/login?url=http://search.ebscohost.com/login.aspx?direct=true&db=cat02306a&AN=rlc.3405534&site=eds-live&scope=site}
 finite elements and error estimation
 @book{hughes2012finite,
   title={The finite element method: linear static and dynamic finite element analysis},
   author={Hughes, Thomas JR},
   year={2012},
   isbn={978-0-4864-1181-1},
-  publisher={Courier Dover Publications}
+  publisher={Courier Dover Publications},
+  address={Mineola, NY}
 }
 
 url={http://www.sciencedirect.com/science/article/pii/S0045782504003202}
@@ -1748,6 +1787,7 @@ url={http://arc.aiaa.org/doi/pdf/10.2514/6.1998-208}
 }
 
 url={www.annualreviews.org/doi/abs/10.1146/annurev.fluid.34.090501.094913}
+another journal with an issue number...
 @article{Glezer:02,
   author={Ari Glezer and Micheal Amitay},
   title={Synthetic jets},
@@ -1769,32 +1809,39 @@ http://biomechanical.asmedigitalcollection.asme.org/article.aspx?articleid=18658
   journal={Journal of biomechanical engineering},
   volume={136},
   number={10},
-  pages={101001},
+  pages={101001-1--101001-10},
+  month=oct,
   year={2014},
   publisher={American Society of Mechanical Engineers},
   doi={10.1115/1.4027488}
 }
 
-surl = {http://adsabs.harvard.edu/abs/2014APS..DFDA24009S},
+url = {http://meetings.aps.org/Meeting/DFD14/Session/A24.9}
+I'm not sure there was a published proceedings
 @INPROCEEDINGS{phastaPartialSlip2014,
-  author = {{Sahni}, O. and {Behafarid}, F. and {Fovargue}, L.},
+  author = {Sahni, O. and Behafarid, F. and Fovargue, L.},
   title = {{3D} Finite Element Formulation of Nonlinear Partial-slip
     Condition on Curved Geometries},
-  booktitle = {APS Meeting Abstracts},
-  year = 2014,
+  booktitle = {67th Annual Meeting of the {APS} Division of Fluid Dynamics},
+  year = {2014},
   month = nov,
+  day = {23-25}
 }
 
 ParMA
 @article{SmithParma2015,
   title={Improving Unstructured Mesh Partitions for Multiple Criteria Using Mesh
     Adjacencies},
+  author={Cameron W. Smith and Michel Rasquin and Dan Ibanez and Kenneth E.
+    Jansen and Mark S. Shephard},
   journal={SIAM J. Scientific Comput.},
-  year={2017 under review},
-  author={Cameron W. Smith and Michel Rasquin and Dan Ibanez and Kenneth E. Jansen and Mark S. Shephard}
+  year={\noop{2017}under review},
+  month=feb,
+  pages={1--25}
 }
 
 url={http://link.springer.com/article/10.1007/s00366-016-0487-5}
+this does not appear to have an assigned volume/issue
 @article{bloomfield2016component,
   title={Component-based workflows for parallel thermomechanical analysis of
     arrayed geometries},
@@ -1804,6 +1851,7 @@ url={http://link.springer.com/article/10.1007/s00366-016-0487-5}
   journal={Engineering with Computers},
   pages={1--9},
   year={2016},
+  month=nov,
   publisher={Springer},
   issn={1435-5663},
   doi={10.1007/s00366-016-0487-5}
@@ -2808,7 +2856,25 @@ url={http://doi.acm.org/10.1145/2451236.2451243}
   address={New York, NY, USA}
 }
 
+
 http://tex.stackexchange.com/questions/123252/how-to-manage-conference-proceedings-in-bibtex
+@proceedings{nafemsWC11,
+  booktitle={Proc. {NAFEMS} World Congress},
+  year={2011},
+  month=may,
+  day={23-26},
+  organization={{NAFEMS}}
+}
+
+@proceedings{nafems14,
+  booktitle={Proc. {NAFEMS} Americas Conf.},
+  year={2014},
+  month=may,
+  day={28-30},
+  organization={{NAFEMS}}
+}
+
+http://imr.sandia.gov/papers/mesh.html
 @proceedings{imr25,
   booktitle={Proc. 25th Int. Meshing Roundtable},
   year={2016},
@@ -2821,6 +2887,13 @@ http://tex.stackexchange.com/questions/123252/how-to-manage-conference-proceedin
   year={2014},
   month=oct,
   day={11-14}
+}
+
+@proceedings{imr21,
+  booktitle={Proc. 21st Int. Meshing Roundtable},
+  year={2012},
+  month=oct,
+  day={7-10}
 }
 
 @proceedings{imr18,
@@ -2842,6 +2915,20 @@ http://tex.stackexchange.com/questions/123252/how-to-manage-conference-proceedin
   year={2003},
   month=sep,
   day={14-17}
+}
+
+@proceedings{imr11,
+  booktitle={Proc. 11th Int. Meshing Roundtable},
+  year={2002},
+  month=sep,
+  day={15-18}
+}
+
+@proceedings{imr8,
+  booktitle={Proc. 8th Int. Meshing Roundtable},
+  year={1999},
+  month=oct,
+  day={10-13}
 }
 
 @article{ibanez2017modifiable,
@@ -2887,11 +2974,46 @@ url = {https://doi.org/10.1109/SC.2014.6},
   crossref = {sc14}
 }
 
+@proceedings{fast02,
+  booktitle = {FAST '02: Proceedings of the 1st USENIX Conference on File and
+    Storage Technologies},
+  year = {2002},
+  location = {Monterey, CA},
+  publisher = {USENIX Association},
+  address = {Berkeley, CA, USA},
+  month=jan,
+  day={28-30}
+}
+
+@proceedings{sc98,
+  booktitle={Proc. Int. Conf. High Performance Comput., Networking, Storage and Anal. (SC)},
+  year={1998},
+  month=nov,
+  day={7-13},
+  organization={IEEE}
+}
+
+@proceedings{sc99,
+  booktitle={Proc. Int. Conf. High Performance Comput., Networking, Storage and Anal. (SC)},
+  year={1999},
+  month=nov,
+  day={14-19},
+  organization={IEEE}
+}
+
 @proceedings{sc09,
   booktitle={Proc. Int. Conf. High Performance Comput., Networking, Storage and Anal. (SC)},
   year={2009},
   month=nov,
   day={14-20},
+  organization={IEEE}
+}
+
+@proceedings{sc11,
+  booktitle={Proc. Int. Conf. High Performance Comput., Networking, Storage and Anal. (SC)},
+  year = {2011},
+  month=nov,
+  day={12-18},
   organization={IEEE}
 }
 
@@ -3274,24 +3396,15 @@ Voxel
   author={Ottmar Klaas and Mark Beall and Mark S. Shephard},
   crossref={nafems14}
 }
-
-@proceedings{nafems14,
-  booktitle={Proc. {NAFEMS} Americas Conf.},
-  year={2014},
-  month=may,
-  day={28-30},
-  organization={{NAFEMS}}
-}
-
 digi mouse voxel example
-url={http://stacks.iop.org/0031-9155/52/i=3/a=003},
+url={https://www.engineeringvillage.com/share/document.url?mid=inspec_13f30451116b4fa789M5bc22061377553&database=ins&view=abstract}
 @article{digiMouse2007,
   author={Belma Dogdas and David Stout and Arion F Chatziioannou and Richard M Leahy},
-  title={Digimouse: a 3D whole body mouse atlas from CT and cryosection data},
+  title={Digimouse: a {3D} whole body mouse atlas from {CT} and cryosection data},
   journal={Physics in Medicine and Biology},
   volume={52},
   number={3},
-  pages={577},
+  pages={577--587},
   year={2007}
 }
 
