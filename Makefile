@@ -1,2 +1,2 @@
 fixrefs : fixrefs.cpp
-	$(CXX) -std=c++11 $< -o $@
+	$(CXX) -g -O0 -std=c++11 $< -o $@
