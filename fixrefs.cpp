@@ -141,6 +141,7 @@ class Parser {
 public:
 
   void run(std::istream& stream) {
+    in_quote = false;
     entries.clear();
     state = LIMBO;
     line = 1;
