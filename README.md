@@ -14,7 +14,9 @@ RPI Thesis formatting DropBox:
 
 https://goo.gl/LqqbyO
 
-Usage, assuming this repository is a subdirectory
+## Usage
+
+Assuming this repository is a subdirectory
 of your thesis:
 
 ```latex
@@ -60,8 +62,26 @@ Use this file as follows:
 \bibliographystyle{scorec-refs/IEEEtran_rpi.bst}
 ```
 
-Documentation on BibTeX:
+## Contributing
+
+* Follow the style of other references (e.g., use brackets instead of quotes)
+* Place conference `@proceedings` entries at the end of the `bib` file
+* When you add or update a reference also add a url to the digital library (see
+  below) where you found it.  This will greatly help future users in case some
+  information is missing or if they just want to find the article.
+
+## Documentation on BibTeX
 
 http://tug.ctan.org/info/bibtex/tamethebeast/ttb_en.pdf
 
 http://maverick.inria.fr/~Xavier.Decoret/resources/xdkbibtex/bibtex_summary.html
+
+## Digital Libraries - great places to find papers and their citations
+
+http://dl.acm.org/
+
+http://www.sciencedirect.com/
+
+http://onlinelibrary.wiley.com/
+
+https://www.engineeringvillage.com
