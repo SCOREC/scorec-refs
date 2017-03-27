@@ -65,6 +65,8 @@ Use this file as follows:
 ## Contributing
 
 * Follow the style of other references (e.g., use brackets instead of quotes)
+* After adding a new reference run `fixrefs` to clean up formatting and identify
+  any missing fields.
 * Place conference `@proceedings` entries at the end of the `bib` file
 * When you add or update a reference also add a url to the digital library (see
   below) where you found it.  This will greatly help future users in case some
