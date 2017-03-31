@@ -98,13 +98,13 @@ FUNCTION {default.is.forced.et.al} { #1 }
 % Note: There are many instances of references in IEEE journals which have
 % a very large number of authors as well as instances in which "et al." is
 % used profusely.
-FUNCTION {default.max.num.names.before.forced.et.al} { #3 }
+FUNCTION {default.max.num.names.before.forced.et.al} { #6 }
 
 
 % The number of names that will be shown with a forced "et al.".
 % Must be less than or equal to max.
 % num.names.before.forced.et.al
-FUNCTION {default.num.names.shown.with.forced.et.al} { #1 }
+FUNCTION {default.num.names.shown.with.forced.et.al} { #6 }
 
 
 % #0 turns off the alternate interword spacing for entries with URLs.
