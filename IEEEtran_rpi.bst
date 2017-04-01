@@ -1953,7 +1953,7 @@ FUNCTION {format.url}
         quote.no 'this.status.quote :=
         urldate missing$
           { "there's a url but no urldate in " cite$ * warning$ }
-          { " (Date Last Accessed: " urldate * ")" * * }
+          { ", Accessed on: " urldate * "." * * }
         if$
       }
     if$
