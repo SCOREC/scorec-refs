@@ -72,6 +72,28 @@ Use this file as follows:
   below) where you found it.  This will greatly help future users in case some
   information is missing or if they just want to find the article.
 
+## Citations with URLs
+
+* Generic websites the 'website' entry type.  It follows
+  the formatting of the seventh example from Section C under the
+  'Reports and Handbooks' heading on page 40 of the 2016 IEEE Editorial Style Manual.
+``` [7] Apple Inc., Palo Alto, CA, USA, “Apple iPhone,” Available: http://apple.com/iphone/. Accessed: Feb. 26, 2013```
+
+* Software packages should use the 'electronic' entry type. It follows
+  the formatting of the second example from Section C under the
+  'Manuals/Software' heading on page 40 of the 2016 IEEE Editorial Style Manual
+```[2] M. Kuhn. The Caret Package. (2012) [Online]. Available: http://cranr-project.org/web/packages /caret /caret.pdf ```
+
+* Blog entries should use the 'blog' entry type. It follows
+  the formatting of the first example from Section C under the
+  'Reports and Handbooks' heading on page 39 of the 2016 IEEE Editorial Style Manual
+```[1] R. J. Hijmans and J. van Etten, “Raster: Geographic analysis and modeling with raster data,” R Package Version 2.0-12, Jan. 12, 2012. [Online]. Available: http://CRAN.R-project.org/package=raster ```
+
+* Online Manuals should use the 'electronicmanual' entry type. It follows
+  the formatting of the first example from Section C under the
+  'Manuals/Software' heading on page 40 of the 2016 IEEE Editorial Style Manual
+```[1] L. Breimann. (2003). Manual on Setting Up, Using, and Understanding Random Forests v4.0. [Online].  Available: http://oz.berkeley.edu/users/breiman/Using_random_forests_v4.0.pdf, Accessed on: Apr. 16, 2014. ```
+
 ## Documentation on BibTeX
 
 http://tug.ctan.org/info/bibtex/tamethebeast/ttb_en.pdf

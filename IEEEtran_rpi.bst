@@ -1947,7 +1947,6 @@ FUNCTION {format.url}
         name.url.prefix " " *
         "\url{" * url * "}" *
         punct.no 'this.status.punct :=
-        punct.period 'prev.status.punct :=
         space.normal 'this.status.space :=
         space.normal 'prev.status.space :=
         quote.no 'this.status.quote :=
@@ -1961,9 +1960,6 @@ FUNCTION {format.url}
     { "" }
   if$
 }
-
-
-
 
 %%%%%%%%%%%%%%%%%%%%
 %% ENTRY HANDLERS %%
@@ -2032,17 +2028,75 @@ FUNCTION {booklet}
   if.url.std.interword.spacing
 }
 
+
+% authors, org, title, (date) [Online]. Available: url, Accessed on: date.
 FUNCTION {electronic}
 { std.status.using.period
   start.entry
   if.url.alt.interword.spacing
   format.authors output
   name.or.dash
+  format.organization "organization" bibinfo.check output
+  format.book.title.edition "title" output.warn
   format.date.electronic output
+  format.howpublished "howpublished" bibinfo.check output
+  format.address "address" bibinfo.check output
+  format.note output
+  punct.no 'this.status.punct :=
+  format.url output
+  punct.period 'this.status.punct :=
+  fin.entry
+  empty.entry.warn
+  if.url.std.interword.spacing
+}
+
+% author, "title", Month Day, Year. [Online]. Available: url, Accessed on: date.
+FUNCTION {blog}
+{ std.status.using.comma
+  start.entry
+  if.url.alt.interword.spacing
+  format.authors "author" output.warn
+  name.or.dash
   format.article.title "title" output.warn
   format.howpublished "howpublished" bibinfo.check output
+  format.institution "institution" bibinfo.warn output
+  format.address "address" bibinfo.check output
+  format.address.organization.date output
+  format.note output
+  format.url output
+  fin.entry
+  if.url.std.interword.spacing
+}
+
+% org, address, "title," Available: url, Accessed on: date.
+FUNCTION {website}
+{ std.status.using.comma
+  start.entry
+  if.url.alt.interword.spacing
+  format.authors output
   format.organization "organization" bibinfo.check output
   format.address "address" bibinfo.check output
+  format.article.title "title" output.warn
+  format.howpublished "howpublished" bibinfo.check output
+  format.note output
+  " Available:" 'name.url.prefix :=
+  format.url output
+  fin.entry
+  empty.entry.warn
+  default.name.url.prefix 'name.url.prefix :=
+  if.url.std.interword.spacing
+}
+
+% author. (date). title. [Online]. Available: url, Accessed on: date.
+FUNCTION {electronicmanual}
+{ std.status.using.period
+  start.entry
+  if.url.alt.interword.spacing
+  format.authors output
+  format.organization "organization" bibinfo.check output
+  format.date.electronic output
+  format.book.title.edition "title" output.warn
+  format.howpublished "howpublished" bibinfo.check output
   format.note output
   format.url output
   fin.entry
