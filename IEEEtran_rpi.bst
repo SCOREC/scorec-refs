@@ -2063,7 +2063,9 @@ FUNCTION {blog}
   format.address "address" bibinfo.check output
   format.address.organization.date output
   format.note output
+  punct.period 'this.status.punct :=
   format.url output
+  punct.comma 'this.status.punct :=
   fin.entry
   if.url.std.interword.spacing
 }
