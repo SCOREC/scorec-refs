@@ -815,6 +815,7 @@ static void remove_unwanted_fields(Entries& entries) {
   remove_type_fields(entries, "inproceedings", "publisher");
   remove_type_fields(entries, "inproceedings", "address");
   remove_type_fields(entries, "inproceedings", "editor");
+  remove_type_fields(entries, "inproceedings", "series");
   remove_type_fields(entries, "proceedings", "address");
   remove_type_fields(entries, "proceedings", "title");
   remove_type_fields(entries, "proceedings", "publisher");
