@@ -1,0 +1,28 @@
+\RequirePackage{filecontents}
+\begin{filecontents*}{\jobname.bib}
+@inproceedings{adiga2002overview,
+  author={N. R. Adiga and G. Almasi and G. S. Almasi and Y. Aridor 
+    and R. Barik and D. Beece and R. Bellofatto and G. Bhanot 
+    and R. Bickford},
+  booktitle={Proc. 2002 ACM/IEEE Conf. Supercomputing},
+  title={{An Overview of the BlueGene/L Supercomputer}},
+  year={2002},
+  month=nov,
+  day={16-22},
+  pages={60-60},
+  doi={10.1109/SC.2002.10017},
+  issn={1063-9535}
+}
+
+\end{filecontents*}
+
+\documentclass[12pt]{thesis}
+\usepackage[utf8]{inputenc}
+
+\begin{document}
+
+Here is a citation~\cite{adiga2002overview}.
+
+\bibliographystyle{scorec-refs/IEEEtran_rpi}
+\bibliography{\jobname}
+\end{document}
