@@ -1321,6 +1321,15 @@ FUNCTION {format.date}
   if$
 }
 
+FUNCTION {format.year.inproceedings}
+{ year duplicate$ empty$ 'skip$
+    { this.to.prev.status
+      this.status.std
+      cap.status.std
+    }
+  if$
+}
+
 FUNCTION {format.date.electronic}
 { month "month" bibinfo.check duplicate$ empty$
   year  "year" bibinfo.check duplicate$ empty$
@@ -2167,7 +2176,7 @@ FUNCTION {inproceedings}
   format.volume output
   format.number output
   publisher empty$
-    { format.address.organization.date output }
+    { format.year.inproceedings output }
     { format.organization "organization" bibinfo.check output
       format.address.publisher.date output
     }
