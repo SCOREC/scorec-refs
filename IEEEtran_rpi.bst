@@ -281,6 +281,7 @@ ENTRY
     paper
     publisher
     school
+    department
     series
     revision
     title
@@ -1593,7 +1594,14 @@ FUNCTION {format.school}
   if$
 }
 
-
+FUNCTION {format.department}
+{ department duplicate$ empty$ 'skip$
+    { this.to.prev.status
+      this.status.std
+      cap.status.std
+    }
+  if$
+}
 
 %% volume/number/series/chapter/pages
 
@@ -2284,6 +2292,7 @@ FUNCTION {phdthesis}
   name.or.dash
   format.article.title "title" output.warn
   format.phd.thesis.type output.nonnull
+  format.department "department" bibinfo.warn output
   format.school "school" bibinfo.warn output
   format.address "address" bibinfo.check output
   format.date "year" output.warn

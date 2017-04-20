@@ -622,6 +622,7 @@ static void abbreviate(Entries& entries) {
           field.name == "journal" ||
           field.name == "organization" ||
           field.name == "institution" ||
+          field.name == "department" ||
           field.name == "school" ||
           (field.name == "booktitle" && entry.type != "inbook")) {
         auto words = split_text(field.value);
@@ -731,6 +732,7 @@ static void warn_missing_fields(Entries& entries) {
       warn_missing_field(entries, entry, "title");
       warn_missing_field(entries, entry, "author");
       warn_missing_field(entries, entry, "school");
+      warn_missing_field(entries, entry, "department");
       warn_missing_field(entries, entry, "address");
       warn_missing_field(entries, entry, "year");
     } else if (entry.type == "mastersthesis") {
