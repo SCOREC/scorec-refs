@@ -2173,14 +2173,14 @@ FUNCTION {inproceedings}
   format.in.booktitle "booktitle" output.warn
   format.series output
   format.editors output
-  format.volume output
-  format.number output
   publisher empty$
     { format.year.inproceedings output }
     { format.organization "organization" bibinfo.check output
       format.address.publisher.date output
     }
   if$
+  format.volume output
+  format.number output
   format.paper output
   format.pages output
   format.note output
