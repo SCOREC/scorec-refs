@@ -2197,6 +2197,27 @@ FUNCTION {inproceedings}
   if.url.std.interword.spacing
 }
 
+FUNCTION {presentation}
+{ std.status.using.comma
+  start.entry
+  if.url.alt.interword.spacing
+  format.authors "author" output.warn
+  name.or.dash
+  format.article.title "title" output.warn
+  format.in.booktitle "booktitle" output.warn
+  format.series output
+  format.editors output
+  format.volume output
+  format.number output
+  format.paper output
+  format.pages output
+  format.note output
+  format.url output
+  format.address.publisher.date output
+  fin.entry
+  if.url.std.interword.spacing
+}
+
 FUNCTION {manual}
 { std.status.using.comma
   start.entry
