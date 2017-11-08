@@ -25,7 +25,7 @@ def uni2tex(text):
             out += "-"
         # combining marks
         elif unicodedata.category(char) in ("Mn", "Mc") and code in accents:
-            out += "\\%s{%s}" %(accents[code], txt[i+1])
+            out += "{\\%s%s}" %(accents[code], txt[i+1])
             i += 1
         # precomposed characters
         elif unicodedata.decomposition(char):
